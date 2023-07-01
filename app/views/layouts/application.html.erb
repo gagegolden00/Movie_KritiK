@@ -9,11 +9,14 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+      <% if user_signed_in?%>
+    <%= "Signed In as #{current_user.email}"%>
+  <%end%>
   </head>
 
   <body>
-  <%= render partial: "shared/nav"%>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main>
+    <%= render 'shared/nav'%>
       <%= yield %>
     </main>
   </body>
