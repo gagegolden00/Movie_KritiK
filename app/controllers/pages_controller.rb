@@ -1,7 +1,2 @@
-class PagesController < ApplicationController
-
-    def landing
-
-    end 
+class PagesController < Devise::SessionsController
 end
-
