@@ -9,19 +9,26 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-      <% if user_signed_in?%>
-    <%= "Signed In as #{current_user.email}"%>
-  <%end%>
-   <% if flash[:alert] %>
-    <div class="alert alert-danger">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
   </head>
 
   <body>
     <main>
-    <%= render 'shared/nav'%>
+
+    <!-- navigation -->
+      <%= render 'devise/shared/nav'%>
+
+    <!-- if user logged in show username -->
+      <% if user_signed_in?%>
+        <%= "Signed In as #{current_user.email}"%>
+      <%end%>
+
+    <!-- flash messages -->
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>

@@ -1,0 +1,34 @@
+<nav class="bg-blue-500 max-h-20 flex items-center">
+  <%= link_to root_path, class: "p-10" do %>
+    <%= image_tag("Nova_Video.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
+  <% end %>
+  <div class="ml-auto py-10 px-10 relative">
+    <%= link_to "Movie reviews", reviews_path, class: "p-10" %>
+
+    <% if @user.admin? %>
+      <%= link_to "New Review", "#", class: "p-10" %>
+    <% else %>
+      <%= link_to "My reviews", "#", class: "p-10" %>
+    <% end %>
+    
+    <div class="relative inline-block">
+      <input type="checkbox" id="dropdown-toggle" class="hidden" />
+      <label for="dropdown-toggle" class="dropdown-label">
+        <button class="p-10">
+          Profile
+        </button>
+      </label>
+      <div class="dropdown-content">
+        <p>Account Link</p>
+        <p>Logout Link</p>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+
