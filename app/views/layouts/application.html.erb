@@ -12,6 +12,11 @@
       <% if user_signed_in?%>
     <%= "Signed In as #{current_user.email}"%>
   <%end%>
+   <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
   </head>
 
   <body>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
 
   devise_for :users, controllers: {
     passwords: 'users/passwords',
@@ -7,5 +8,6 @@ Rails.application.routes.draw do
   }
   devise_scope :user do 
     root to: "pages#home"
+    get '/email_sent', to: 'users/passwords#email_sent', as: :email_sent
   end
 end
