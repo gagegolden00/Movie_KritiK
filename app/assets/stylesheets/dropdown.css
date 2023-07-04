@@ -1,5 +1,12 @@
-.dropdown-label {
-    display: none;
+nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
   }
   
   .dropdown-content {
@@ -12,14 +19,18 @@
     z-index: 1;
   }
   
-  .dropdown-content p {
-    margin: 0;
+  .dropdown-label:hover + .dropdown-content,
+  .dropdown-content:hover {
+    display: block;
   }
   
-  .relative:hover .dropdown-content {
-    display: block;
+  .dropdown-content p {
+    margin: 0;
   }
   
   .hidden {
     display: none;
   }
+  
+  
+  

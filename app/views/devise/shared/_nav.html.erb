@@ -2,8 +2,8 @@
   <%= link_to root_path, class: "p-10" do %>
     <%= image_tag("Nova_Video.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
-  <div class="ml-auto py-10 px-10 relative">
-    <%= link_to "Movie reviews", reviews_path, class: "p-10" %>
+  <div class="ml-auto relative">
+    <%= link_to "Movie reviews", movies_path, class: "p-10" %>
 
     <% if @user.admin? %>
       <%= link_to "New Review", "#", class: "p-10" %>
@@ -23,10 +23,8 @@
         <p>Logout Link</p>
       </div>
     </div>
-
   </div>
 </nav>
-
 
 
 

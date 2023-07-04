@@ -1,10 +1,10 @@
-<%= form_with(model: review, class: "contents") do |form| %>
-  <% if review.errors.any? %>
+<%= form_with(model: movie, class: "contents") do |form| %>
+  <% if movie.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
 
       <ul>
-        <% review.errors.each do |error| %>
+        <% movie.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
