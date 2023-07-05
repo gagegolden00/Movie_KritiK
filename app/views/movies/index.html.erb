@@ -1,14 +1,43 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Movies</h1>
-    <%= link_to 'New movie', new_movie_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+<body class="bg-gray-200">
+  <header class="flex">
+    <!-- Search form -->
+    <div data-controller="clearform" data-clearform-action="click=>clearform#clearForm" class="flex flex-wrap flex-row justify-center w-screen">
+      <%= form_with(model: @movie, url: movies_path, method: :get, class: "w-full") do |selection_form| %>
+        <div class="flex items-center justify-center m-2">
+          <%= text_field_tag :q, params[:q], placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md"%>
+          <%= selection_form.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2"%>
+          <%= link_to "Reset search", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2" %>
+        </div>
+        <div class="flex justify-center m-2 space-x-40">
+          <%= selection_form.select :year, options_for_select([["Release Year"], ["1"], ["2"]]), class: "w-40"%>
+          <%= selection_form.select :genre, options_for_select([["Genre"], ["1"]]), class: "w-40" %>
+          <%= selection_form.select :rating, options_for_select([["Rating"], ["1"]]), class: "w-40" %>
+          <%= selection_form.select :score, options_for_select([["Score"], ["1"]]), class: "w-40" %>
+        </div>
+      <% end %>
+    </div>
 
-  <div id="movies" class="min-w-full">
-    <%= render @movies %>
-  </div>
-</div>
+  </header>
+  <main>
+    <div class="flex justify-center items-center flex-wrap flex-row">
+      <% if @movies.present? %>
+        <h2 class="flex w-screen justify-center my-8">Search Results:</h2>
+      <% @movies.each do |movie| %>
+        <div class="flex justify-center flex-col items-center">
+          <div class="bg-blue-200 w-52 h-80 p-10 m-10 rounded">
+            <p>Image here</p>
+          </div>
+          <p><%= movie.title %></p>
+          <p><%= movie.rating %></p>
+          <p><%= movie.genre %></p>
+          <p><%= movie.score %></p>
+        </div>
+      <% end %>
+    <% elsif flash[:notice].present? %>
+      <p><%= flash[:notice] %></p>
+    <% end %>
+    </div>
+  </main>
+</body>
+

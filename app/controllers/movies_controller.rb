@@ -1,10 +1,20 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
 
+
+ # def search 
+  #end
   # GET /movies or /movies.json
   def index
     @movies = Movie.all
     @user = current_user
+    @movie = Movie.new
+    @movies = Movie.search(params[:title], params[:year], params[:genre], params[:rating], params[:score])
+    if @movies.nil? || @movies.empty?
+      flash[:notice] = "Sorry, there are no reviews that match your search."
+    end
+    @q = Movie.ransack(params[:q])
+    @filtered_movies = @q.result(distinct: true)
   end
 
   # GET /movies/1 or /movies/1.json
