@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
         set_flash_message!(:notice, :signed_in)
         sign_in(resource_name, resource)
         yield resource if block_given?
-        respond_with resource, location: reviews_url
+        respond_with resource, location: movies_url
       end
 
 end

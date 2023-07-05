@@ -12,6 +12,7 @@ class Users::PasswordsController < Devise::PasswordsController
           end
         else
           respond_with(resource)
+          
         end
       end
 

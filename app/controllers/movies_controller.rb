@@ -1,20 +1,20 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
-
+  before_action :set_movie, only: %i[ show edit update destroy ]
 
  # def search 
   #end
   # GET /movies or /movies.json
-  def index()
+  def index
     @movies = Movie.all
     @user = current_user
     @movie = Movie.new
-    @movies = @movies.filter_by_year(movie_params[:year])
+    @movies = @movies.filter_movies(params[:movie]) if params[:movie].present?
     if @movies.nil? || @movies.empty?
       flash[:notice] = "Sorry, there are no reviews that match your search."
     end
-  
   end
+  
 
   # GET /movies/1 or /movies/1.json
   def show
@@ -72,6 +72,11 @@ class MoviesController < ApplicationController
     def set_movie
       @movie = Movie.find(params[:id])
     end
+
+    def set_user
+      @user = current_user
+    end
+
 
     # Only allow a list of trusted parameters through
     def movie_params
