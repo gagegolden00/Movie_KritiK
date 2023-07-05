@@ -1,13 +1,9 @@
 class Movie < ApplicationRecord
-    # old search form
-    def self.search(title, year, genre, rating, score)
-        movies = Movie.all
-        movies = movies.where("title LIKE ?", "%#{title}%") if title.present?
-        movies = movies.where(year: year) if year.present? && year != "Release Year"
-        movies = movies.where(genre: genre) if genre.present? && genre != "Genre"
-        movies = movies.where(rating: rating) if rating.present? && rating != "Rating"
-        movies = movies.where(score: score) if score.present? && score != "Score"
-        movies
-    end
+    scope :filter_by_title, -> (title) {  where("title like ?", "#{title}%") }
+    scope :filter_by_genre, -> (genre) { where genre: genre }
+    scope :filter_by_rating, -> (rating) {where("rating like ?", "#{rating}%") }
+    scope :filter_by_year, -> (year) {where year: year }
+    scope :filter_by_score, -> (score) {where score: score }
+
     
 end

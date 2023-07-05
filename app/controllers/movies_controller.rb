@@ -5,16 +5,20 @@ class MoviesController < ApplicationController
  # def search 
   #end
   # GET /movies or /movies.json
-  def index
+  def index()
     @movies = Movie.all
     @user = current_user
     @movie = Movie.new
-    @movies = Movie.search(params[:title], params[:year], params[:genre], params[:rating], params[:score])
     if @movies.nil? || @movies.empty?
       flash[:notice] = "Sorry, there are no reviews that match your search."
     end
-    @q = Movie.ransack(params[:q])
-    @filtered_movies = @q.result(distinct: true)
+    @movies = Movie.filter_by_title("#{params[:title]}") if params[:title].present?
+    @moview = Movie.filter_by_year("#{params[:year]}") if params[:year].present?
+    @movies = Movie.filter_by_genre("#{params[:genre]}") if params[:genre].present?
+    @movies = Movie.filter_by_rating("#{params[:rating]}") if params[:rating].present?
+    @movies = Movie.filter_by_score("#{params[:score]}") if params[:score].present?
+    binding.pry
+
   end
 
   # GET /movies/1 or /movies/1.json
@@ -75,7 +79,12 @@ class MoviesController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def movie_params
-      params.require(:movie).permit(:title, :review)
+    def movie_search_params
+      params.require(:movie).permit(:title, :year, :genre, :rating, :score, :search_input)
     end
+
+    def movie_params
+      params.require(:movie).permit(:title, :year, :genre, :rating, :score)
+    end
+
 end
