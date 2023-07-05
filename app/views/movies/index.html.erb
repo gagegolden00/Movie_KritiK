@@ -3,17 +3,17 @@
   <header class="flex">
     <!-- Search form -->
     <div data-controller="clearform" data-clearform-action="click=>clearform#clearForm" class="flex flex-wrap flex-row justify-center w-screen">
-      <%= form_with(model: @movie, url: movies_path, method: :get, class: "w-full") do |selection_form| %>
+      <%= form_with(model: @movie, url: movies_path, method: :get, class: "w-full") do |sel| %>
         <div class="flex items-center justify-center m-2">
           <%= text_field_tag :search_input, params[:search_input], placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md"%>
-          <%= selection_form.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2"%>
+          <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2"%>
           <%= link_to "Reset search", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2" %>
         </div>
         <div class="flex justify-center m-2 space-x-40">
-          <%= selection_form.select :year, options_for_select([["Release Year"], [2000], [2001], [2002], [2003]]), class: "w-40"%>
-          <%= selection_form.select :genre, options_for_select([["Genre"], ["genre"]]), class: "w-40" %>
-          <%= selection_form.select :rating, options_for_select([["Rating"], ["G"], ["PG"], ["PG-13"] ]), class: "w-40" %>
-          <%= selection_form.select :score, options_for_select([["Score"], [1], [2], [3], [4], [5]]), class: "w-40" %>
+          <%= sel.select :year, options_for_select([["Release Year", nil], [2000, 2000], [2001, 2001], [2002, 2002], [2003, 2003]]), class: "w-40" %>
+          <%= sel.select :genre, options_for_select([["Genre"], ["genre"]]), class: "w-40" %>
+          <%= sel.select :rating, options_for_select([["Rating"], ["G"], ["PG"], ["PG-13"] ]), class: "w-40" %>
+          <%= sel.select :score, options_for_select([["Score"], [1], [2], [3], [4], [5]]), class: "w-40" %>
         </div>
       <% end %>
     </div>
@@ -32,6 +32,7 @@
           <p><%= movie.rating %></p>
           <p><%= movie.genre %></p>
           <p><%= movie.score %></p>
+          <p><%= movie.year %></p>
         </div>
       <% end %>
     <% elsif flash[:notice].present? %>
