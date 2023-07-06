@@ -1,9 +1,6 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: %i[ show edit update destroy ]
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  
 
- # def search 
-  #end
   # GET /movies or /movies.json
   def index
     @movies = Movie.all
@@ -15,11 +12,13 @@ class MoviesController < ApplicationController
       end.compact.select { |_key, value| value.present? }
     end
     params = @params_array
-    @movies = @movies.filter_movies(params[:movie])if params[:movie].present?
+    if params && params[:movie].present?
+      @movies = @movies.filter_movies(params[:movie]) 
+    end
+
     if @movies.nil? || @movies.empty?
       flash[:notice] = "Sorry, there are no reviews that match your search."
     end
-    
   end
   
 
@@ -76,13 +75,7 @@ class MoviesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
 
-    def set_user
-      @user = current_user
-    end
 
     def filter_attribute_value(value)
       Array(value).reject(&:empty?)

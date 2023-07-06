@@ -3,13 +3,16 @@
 <body class="bg-gray-200">
   <header class="flex">
     <!-- Search form -->
-    <%= form_with(model: @movie, url: movies_path, method: :get, class: "w-full") do |sel| %>
+    <%= form_with(model: @movie, url: reviews_search_reviews_path, method: :get, class: "w-full") do |sel| %>
       <div class="flex items-center justify-center m-2" data-controller="clearform">
         <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md" %>
         <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2" %>
         <%= link_to "Reset search", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
+        <% if @user.admin?%>
+          <%= link_to "New Review", reviews_search_reviews_path, class: "bg-blue-400 rounded-md py-2 px-4 ml-2"%>
+        <%end%>
       </div>
-      <div class="flex justify-center m-2 justify-evenly ">
+      <div class="flex m-2 justify-evenly">
         <div class="formdropdown ">
           <div class="dropdown-label">Year</div>
           <div class="dropdown-content">

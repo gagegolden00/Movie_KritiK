@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :movies do
     collection do
-      get :search
+      resources :reviews do
+        collection do
+          get 'search', to: 'reviews#search', as: :reviews_search
+        end
+      end
     end
   end
   

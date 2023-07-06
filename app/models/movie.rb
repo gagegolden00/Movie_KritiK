@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  has_one :review, dependent: :destroy
+
   scope :filter_by_title, -> (title) { where("LOWER(REPLACE(title, ' ', '')) LIKE ?", "%#{title.downcase.gsub(' ', '')}%") if title.present? }
   scope :filter_by_genre, -> (genres) {
     genres = Array(genres).compact
