@@ -1,15 +1,13 @@
 class ReviewsController < ApplicationController
+  require 'net/http' # for api requests
   before_action :set_review, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
   def search
-    @movies = Movie.all
-    if params[:title].present?
-      @movies = Movie.filter_by_title(params[:title])
-    else
-      @movies = Movie.all
-    end
-    if @movies.empty?
+
+    @movies = retrieve_movie_details(params[:title]) if params[:title].present?
+    #binding.pry
+    if @movies.nil?
       flash[:notice] = "Sorry, there are no movies that match your search."
     end
   end
@@ -80,4 +78,12 @@ class ReviewsController < ApplicationController
     def review_params
       params.fetch(:review, {})
     end
+
+    def retrieve_movie_details(title)
+      @api_key = '6b86fd48'
+      api_request = URI("http://www.omdbapi.com/?apikey=#{@api_key}&s=#{CGI.escape(title)}")
+      response = Net::HTTP.get(api_request)
+      JSON.parse(response)
+    end
+
 end
