@@ -1,9 +1,24 @@
 class Movie < ApplicationRecord
   scope :filter_by_title, -> (title) { where("LOWER(REPLACE(title, ' ', '')) LIKE ?", "%#{title.downcase.gsub(' ', '')}%") if title.present? }
-  scope :filter_by_genre, -> (genre) { where genre: genre if :genre.present? }
-  scope :filter_by_rating, -> (rating) { where("LOWER(rating) = ?", rating.downcase) if rating.present? }
-  scope :filter_by_year, -> (year) {where year: year if :year.present? }
-  scope :filter_by_score, -> (score) {where score: score if :score.present? }
+  scope :filter_by_genre, -> (genres) {
+    genres = Array(genres).compact
+    where(genre: genres) if genres.present?
+  }
+  
+  scope :filter_by_rating, -> (ratings) {
+    ratings = Array(ratings).compact.map(&:downcase)
+    where("LOWER(rating) IN (?)", ratings) if ratings.present?
+  }
+  
+  scope :filter_by_year, -> (years) {
+    years = Array(years).compact
+    where(year: years) if years.present?
+  }
+  
+  scope :filter_by_score, -> (scores) {
+    scores = Array(scores).compact
+    where(score: scores) if scores.present?
+  }
 
   def self.filter_movies(params)
     movies = self.all

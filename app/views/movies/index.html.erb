@@ -1,20 +1,42 @@
+<%= stylesheet_link_tag 'formdropdown', media: 'all' %>
 
 <body class="bg-gray-200">
   <header class="flex">
     <!-- Search form -->
     <%= form_with(model: @movie, url: movies_path, method: :get, class: "w-full") do |sel| %>
-      <div class="flex items-center justify-center m-2" data-controller="clearform" data->
+      <div class="flex items-center justify-center m-2" data-controller="clearform">
         <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md" %>
         <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2" %>
         <%= link_to "Reset search", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
       </div>
-      <div class="flex justify-center m-2 space-x-40">
-        <%= sel.select :year, options_for_select([["Release Year", nil], [2000, 2000], [2001, 2001], [2002, 2002], [2003, 2003]]), class: "w-40" %>
-        <%= sel.select :genre, options_for_select([["Genre", nil], ["genre1", "genre1"], ["genre2", "genre2"]]), class: "w-40" %>
-        <%= sel.select :rating, options_for_select([["Rating", nil], ["G", "G"], ["PG", "PG"], ["PG-13", "PG-13"]]), class: "w-40" %>
-        <%= sel.select :score, options_for_select([["Score", nil], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5]]), class: "w-40" %>
+      <div class="flex justify-center m-2 justify-evenly ">
+        <div class="formdropdown ">
+          <div class="dropdown-label">Year</div>
+          <div class="dropdown-content">
+            <%= sel.collection_check_boxes :year, [[2000, 2000], [2001, 2001], [2002, 2002], [2003, 2003]], :first, :last, class: "year-checkboxes" %>
+          </div>
+        </div>
+        <div class="formdropdown">
+          <div class="dropdown-label">Genre</div>
+          <div class="dropdown-content">
+            <%= sel.collection_check_boxes :genre, [["genre1", "Genre 1"], ["genre2", "Genre 2"]], :first, :last, class: "genre-checkboxes" %>
+          </div>
+        </div>
+        <div class="formdropdown">
+          <div class="dropdown-label">Rating</div>
+          <div class="dropdown-content">
+            <%= sel.collection_check_boxes :rating, [["G", "G"], ["PG", "PG"], ["PG-13", "PG-13"]], :first, :last, class: "rating-checkboxes" %>
+          </div>
+        </div>
+        <div class="formdropdown">
+          <div class="dropdown-label">Score</div>
+          <div class="dropdown-content">
+            <%= sel.collection_check_boxes :score, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]], :first, :last, class: "score-checkboxes" %>
+          </div>
+        </div>
       </div>
     <% end %>
+
   </header>
   <main>
     <div class="flex justify-center items-center flex-wrap flex-row">

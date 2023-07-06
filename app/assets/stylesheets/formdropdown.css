@@ -1,0 +1,47 @@
+.formdropdown {
+  position: relative;
+  display: inline-block;
+  width: 225px; /* Adjust the width as needed */
+  
+}
+
+.formdropdown .dropdown-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.formdropdown .dropdown-label::after {
+  content: "\25BE"; /* Unicode character for down arrow */
+}
+
+.formdropdown .dropdown-content {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  max-height: 300px; /* Adjust the max height as needed */
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  z-index: 1;
+}
+
+.formdropdown .dropdown-content label {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.formdropdown .dropdown-content label input[type="checkbox"] {
+  margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.formdropdown .dropdown-content label:hover {
+  background-color: #f0f0f0;
+}

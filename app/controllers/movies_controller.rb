@@ -9,10 +9,17 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @user = current_user
     @movie = Movie.new
-    @movies = @movies.filter_movies(params[:movie]) if params[:movie].present?
+    if params[:movie].present?
+      @params_array = params[:movie].transform_values do |value|
+        Array(value).reject(&:empty?) unless Array(value).empty?
+      end.compact.select { |_key, value| value.present? }
+    end
+    params = @params_array
+    @movies = @movies.filter_movies(params[:movie])if params[:movie].present?
     if @movies.nil? || @movies.empty?
       flash[:notice] = "Sorry, there are no reviews that match your search."
     end
+    
   end
   
 
@@ -75,6 +82,10 @@ class MoviesController < ApplicationController
 
     def set_user
       @user = current_user
+    end
+
+    def filter_attribute_value(value)
+      Array(value).reject(&:empty?)
     end
 
 
