@@ -4,6 +4,7 @@
   <title>Search a Movie to Review</title>
 </head>
 <body>
+
   <h1 class="flex justify-center font-bold">
     What movie would you like to review?
   </h1>
@@ -13,28 +14,36 @@
       <div class="flex items-center justify-center m-2" data-controller="clearform">
         <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md" %>
         <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2" %>
-        <%= link_to "Reset search", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
+        <%= link_to "Reset", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
       </div>
     <% end %>
   </div>
 
-  <div class="flex justify-center items-center flex-wrap flex-row">
+  <div class="flex flex-wrap flex-row">
+
     <% if @movies && @movies['Search'] %>
-      <h2 class="flex w-screen justify-center my-8">Search Results:</h2>
+      <h2 class="flex w-screen justify-center">Search Results:</h2>
+
     <% @movies['Search'].each do |movie|%>
-      <div class="flex justify-center flex-col items-center mt-4">
-        <div class="bg-blue-200 w-52 h-80 m-10 rounded">
+
+      <div class="flex justify-center flex-col items-center w-1/2 lg:w-1/4">
+
+
+        <div class="w-3/5 h-2/5 lg:w-3/5 lg:h-3/5 m-10 rounded">
           <img src="<%= movie['Poster'] %>" alt="Movie Poster" class="w-full h-full">
         </div>
-        <div class="flex justify-center">
-          <h2 class="flex justify-center text-center w-3/4">Title: <%= movie['Title'] %></h2>
+
+        <div class="flex justify-center w-4/5 h-1/5">
+          <h2 class="flex justify-center text-center w-3/4 overflow-scroll"><%= movie['Title'] %></h2>
+          <p class="flex justify-center text-center w-3/4 overflow-scroll"><%= movie['imdbID'] %></p>
         </div>
+
         <div class="m-4">
             <% if false%>
-              <%= link_to "Edit", "#", class: "bg-slate-200 rounded-md py-2 px-4 m-4" %>
-              <%= link_to "Delete", "#", class: "bg-slate-200 border-red rounded-md py-2 px-4 m-4" %>
+              <%= link_to "Edit", "#", class: "bg-slate-200 rounded-md py-2 px-4 m-2" %>
+              <%= link_to "Delete", "#", class: "bg-slate-200 rounded-md py-2 px-4 m-2" %>
             <% else %>
-              <%= link_to "Create Review", , class: "bg-slate-200 border-red-500 rounded-md py-2 px-4 m-4" %>
+              <%= link_to "Create Review", new_review_path(movie_id: movie['imdbID']), class: "bg-slate-200 rounded-md py-2 px-4 m-2 position: static;" %>
             <% end %>
         </div>
       </div>

@@ -1,9 +1,43 @@
-<h1>New review</h1>
+<!DOCTYPE html>
+<html>
+<body>
+  <main class="flex flex-wrap">
 
-<%= render "form", review: @review %>
+    <div class="flex justify-center my-4 lg:mr-auto  lg:ml-80 lg:w-3/4">
+      <% if @movie.present? %>
+        <img src="<%= @movie['Poster'] %>" alt="Movie Poster" class="mr-5">
+      <% else %>
+        <p>No movie found.</p>
+      <% end %>
 
-<br>
+      <div class="flex-col mt-2 mb-4">
+        <div class="mr-60">
+          <h1 class="text-3xl"><%= @movie['Title']%></h1>
+          <p class="text-slate-700"><%= @movie['Year'] %> | <%= @movie['Runtime']%> | <%= @movie['Rated'] %> | <%= @movie['Genre'] %></p>
+        </div>
+        <div class="mt-4 mr-60">
+          <h4 class="font-bold">Director</h4>
+          <p><%= @movie['Director'] %></p>
+        </div>
+        <div class="mt-4 mr-60">
+          <h4 class="font-bold">Actors</h4>
+          <p><%= @movie['Actors'] %></p>
+        </div>  
+        <div class="mt-4 mr-60">
+          <h4 class="font-bold">Awards</h4>
+          <p><%= @movie['Awards'] %></p>
+        </div>  
+        <div class="mt-4 mr-60">
+          <h4 class="font-bold">Summary</h4>
+          <p><%= @movie['Plot'] %></p>
+        </div>
+      </div>
+    </div>
+      <div class="flex flex-wrap justify-center mb-10 mt-4 lg:mr-72  lg:ml-80 lg:w-3/4">
+        <%= render partial: 'form'%>
+      </div>
+    </div>
+  </main>
 
-<div>
-  <%= link_to "Back to reviews", reviews_path %>
-</div>
+</body>
+</html>

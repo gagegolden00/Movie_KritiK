@@ -1,6 +1,6 @@
-<nav class="bg-blue-500 max-h-20 flex items-center">
+<nav class=" max-h-14 flex items-center border-2 border-black">
   <%= link_to root_path, class: "mt-5" do %>
-    <%= image_tag("Nova_Video.png", alt: "The Movie Critic site logo / link to home", width: 400, height: 300) %>
+    <%= image_tag("Nova_Video.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
   <div class="ml-auto relative">
     <%= link_to "Movie reviews", movies_path, class: "p-10" %>
@@ -10,7 +10,8 @@
     <% else %>
       <%= link_to "My reviews", "#", class: "p-10" %>
     <% end %>
-    
+      <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-gray-300 cursor-hover" %>
+
     <div class="relative inline-block">
       <input type="checkbox" id="dropdown-toggle" class="hidden" />
       <label for="dropdown-toggle" class="dropdown-label">
