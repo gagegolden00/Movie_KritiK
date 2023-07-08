@@ -2,7 +2,7 @@
   <%= link_to root_path, class: "mr-auto md:mr-10" do %>
     <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
-  <div class="sm:hidden md:flex md:ml-auto border-2">
+  <div class="sm:hidden md:flex md:ml-auto border-2 items-center">
   <div class="flex items-center">
     <%= link_to "Movie reviews", movies_path, class: "md:mr-10 border-2" %>
 
@@ -15,7 +15,7 @@
     <div class="inline-block">
       <input class="hidden" />
       <label class="dropdown-label">
-        <button class="pl-2 pr-2 pt-2 mr-20 border-2 ali">
+        <button class=" mr-20 border-2 flex justify-center mx-auto">
           Profile
         </button>
       </label>
