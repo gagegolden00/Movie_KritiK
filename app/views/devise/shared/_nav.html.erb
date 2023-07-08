@@ -1,30 +1,53 @@
-<nav class=" max-h-14 flex items-center border-2 border-black">
-  <%= link_to root_path, class: "mt-5" do %>
-    <%= image_tag("Nova_Video.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
+<nav class="md:text-black md:h-20 md:flex  md:items-center border-2 border-slate-300">
+  <%= link_to root_path, class: "mr-auto md:mr-10" do %>
+    <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
-  <div class="ml-auto relative">
-    <%= link_to "Movie reviews", movies_path, class: "p-10" %>
+  <div class="sm:hidden md:flex md:ml-auto border-2">
+  <div class="flex items-center">
+    <%= link_to "Movie reviews", movies_path, class: "md:mr-10 border-2" %>
 
     <% if @user.admin? %>
-      <%= link_to "New Review", "#", class: "p-10" %>
+      <%= link_to "New Review", "#", class: "md:mr-10 border-2" %>
     <% else %>
-      <%= link_to "My reviews", "#", class: "p-10" %>
+      <%= link_to "My reviews", "#", class: "md:mr-10 border-2" %>
     <% end %>
-      <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-gray-300 cursor-hover" %>
-
-    <div class="relative inline-block">
-      <input type="checkbox" id="dropdown-toggle" class="hidden" />
-      <label for="dropdown-toggle" class="dropdown-label">
-        <button class="p-10">
+  </div>
+    <div class="inline-block">
+      <input class="hidden" />
+      <label class="dropdown-label">
+        <button class="pl-2 pr-2 pt-2 mr-20 border-2 ali">
           Profile
         </button>
       </label>
-      <div class="dropdown-content">
+      <div class="dropdown-content border-2 border-black">
         <p>Account Link</p>
-        <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-gray-300 cursor-hover" %>
+        <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-gray-300 cursor-hover border-2" %>
       </div>
     </div>
   </div>
+
+
+<!-- mobile view hamburger -->
+
+
+<div class="md:hidden flex justify-end border-5 border-red-700" data-controller="mobile-menu">
+  <label for="menu-toggle" class="cursor-pointer" data-action="click->mobile-menu#toggleMenu">
+    <svg class="h-6 w-6 text-black border-5 border-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </label>
+  <div class="w-40 h-40 mt-7 absolute bg-slate-300 rounded-lg shadow-lg" data-mobile-menu-target="menuContent">
+    <%= link_to "Movie reviews", movies_path, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
+    <% if @user&.admin? %>
+      <%= link_to "New Review", reviews_search_reviews_path, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
+    <% else %>
+      <%= link_to "My reviews", "#", class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
+    <% end %>
+    <p class="block px-4 py-2 text-sm text-black bg-slate-300">Account Link</p>
+    <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
+  </div>
+</div>
+
 </nav>
 
 

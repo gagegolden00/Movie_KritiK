@@ -21,8 +21,14 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
+
     @review = Review.new
-    @movie = retrieve_selected_movie_details(params[:movie_id])
+    @movie_data = retrieve_selected_movie_details(params[:api_movie_id])
+    #binding.pry
+    #session[:movie_title] = params[:movie_title]
+    #binding.pry
+    
+
   end
   
 
@@ -32,6 +38,9 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
+
+    binding.pry
+    @movie_data = retrieve_selected_movie_details(params[:api_movie_id])
     @review = Review.new(review_params)
     respond_to do |format|
       if @review.save
@@ -75,7 +84,7 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit()
+      params.require(:review).permit(:content, :score)
     end
 
     def retrieve_movies(title)
@@ -89,9 +98,9 @@ class ReviewsController < ApplicationController
       @movies = self.retrieve_movies(params[:title]) if params[:title].present?
     end
 
-    def retrieve_selected_movie_details(movie_id)
+    def retrieve_selected_movie_details(api_movie_id)
       @api_key = '6b86fd48'
-      api_request = URI("http://www.omdbapi.com/?apikey=#{@api_key}&i=#{CGI.escape(movie_id)}")
+      api_request = URI("http://www.omdbapi.com/?apikey=#{@api_key}&i=#{CGI.escape(api_movie_id)}")
       response = Net::HTTP.get(api_request)
       JSON.parse(response)
     end

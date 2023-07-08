@@ -1,55 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Search a Movie to Review</title>
-</head>
-<body>
+<h1 class="flex justify-center font-bold">
+  What movie would you like to review?
+</h1>
 
-  <h1 class="flex justify-center font-bold">
-    What movie would you like to review?
-  </h1>
+<div>
+  <%= form_with(model: @review, url: reviews_search_reviews_path, method: :get, class: "w-full") do |sel| %>
+    <div class="flex items-center justify-center m-2" data-controller="clearform">
+      <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md" %>
+      <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2" %>
+      <%= link_to "Reset", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
+    </div>
+  <% end %>
+</div>
 
-  <div>
-    <%= form_with(model: @review, url: reviews_search_reviews_path, method: :get, class: "w-full") do |sel| %>
-      <div class="flex items-center justify-center m-2" data-controller="clearform">
-        <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "w-1/2 p-2 rounded-md" %>
-        <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2" %>
-        <%= link_to "Reset", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
-      </div>
-    <% end %>
-  </div>
+<div class="flex flex-wrap flex-row">
 
-  <div class="flex flex-wrap flex-row">
+  <% if @movies && @movies['Search'] %>
+    <h2 class="flex w-full justify-center mt-4">Search Results:</h2>
+  <% end %>
 
-    <% if @movies && @movies['Search'] %>
-      <h2 class="flex w-screen justify-center">Search Results:</h2>
-
-    <% @movies['Search'].each do |movie|%>
-
-      <div class="flex justify-center flex-col items-center w-1/2 lg:w-1/4">
-
-
-        <div class="w-3/5 h-2/5 lg:w-3/5 lg:h-3/5 m-10 rounded">
-          <img src="<%= movie['Poster'] %>" alt="Movie Poster" class="w-full h-full">
-        </div>
-
-        <div class="flex justify-center w-4/5 h-1/5">
-          <h2 class="flex justify-center text-center w-3/4 overflow-scroll"><%= movie['Title'] %></h2>
-          <p class="flex justify-center text-center w-3/4 overflow-scroll"><%= movie['imdbID'] %></p>
-        </div>
-
-        <div class="m-4">
-            <% if false%>
-              <%= link_to "Edit", "#", class: "bg-slate-200 rounded-md py-2 px-4 m-2" %>
-              <%= link_to "Delete", "#", class: "bg-slate-200 rounded-md py-2 px-4 m-2" %>
-            <% else %>
-              <%= link_to "Create Review", new_review_path(movie_id: movie['imdbID']), class: "bg-slate-200 rounded-md py-2 px-4 m-2 position: static;" %>
-            <% end %>
+  <% @movies['Search'].each do |movie| %>
+    <div class="flex flex-col items-center w-1/2 lg:w-1/4">
+      <div class="w-3/5 h-2/5 lg:w-3/5 lg:h-3/5 mb-2 mt-10 mr-10 ml-10 rounded overflow-hidden flex-grow">
+        <div class="aspect-w-3 aspect-h-4">
+          <img src="<%= movie['Poster'] %>" alt="Movie Poster" class="object-cover object-center w-full h-full">
         </div>
       </div>
-    <% end %>
-    <% end %>
-  </div>
-</body>
-</html>
 
+      <div class="flex flex-col items-center w-full p-4 bottom-0">
+        <h2 class="text-center mb-4 w-4/5"><%= movie['Title'] %></h2>
+
+        <div class="flex justify-center align-baseline">
+          <% if true %>
+            <%= link_to "Edit", "#", class: "border-2 border-slate-300 text-purple-600 rounded-md py-1 px-4 m-2" %>
+            <%= link_to "Delete", "#", class: "border-2 border-slate-300 text-purple-600 rounded-md py-1 px-4 m-2" %>
+          <% else %>
+            <%= link_to "Review", new_review_path(api_movie_id: movie['imdbID']), class: "border-2 border-slate-300 text-purple-600 rounded-md p-2 lg:py-1 lg:px-4 m-2" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
