@@ -1,49 +1,71 @@
-<div class=" min-w-[200px]">
-  <%= render "devise/shared/error_messages", resource: resource %>
-</div>
-<div class=" fixed inset-0 flex items-center justify-center">
-  <div>
-    <h2 class="font-bold flex justify-center">Sign up</h2>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "mb-4") do |f| %>
-      <div>
-        <%= f.label :first_name, class: "block mb-1" %>
-        <%= f.text_field :first_name, autofocus: true, class: "w-full border-gray-300 rounded-md p-2" %>
-      </div>
+<main class="flex justify-center flex-col items-center border-2 border-red-600">
+  <div class="lg:mb-10 flex flex-col justify-center">
+    <a href="/" class=" mb-4 mt-10 flex text-black text-3xl lg:text-7xl font-bold">The Movie Critic</a>
+    <div class="flex justify-cente">
+      <%= render "devise/shared/error_messages", resource: resource %>
+    </div>
+    <h2 class="flex justify-center lg:mt-12 font-bold">Sign up form</h2>
+  </div>
+  <div class="flex justify-center w-3/4 lg:w-1/4">
+    
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-       <div>
-        <%= f.label :last_name, class: "block mb-1" %>
-        <%= f.text_field :last_name, autofocus: true, class: "w-full border-gray-300 rounded-md p-2" %>
-      </div>
+      <div class="lg:flex">
+        <div class="flex flex-col justify-center items-center mr-2 mt-6">
+          <%= f.label :first_name, class: "font-bold mr-auto" %>
+          <%= f.text_field :first_name, autofocus: true, class: "lg:w-full rounded" %>
+        </div>
 
-      <div>
-        <%= f.label :username, class: "block mb-1" %>
-        <%= f.text_field :username, autofocus: true, class: "w-full border-gray-300 rounded-md p-2" %>
-      </div>
-
-      <div>
-        <%= f.label :email, class: "block mb-1" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border-gray-300 rounded-md p-2" %>
-      </div>
-
-      <div>
-        <%= f.label :password, class: "block mb-1" %>
-        <% if @minimum_password_length %>
-          <em class="text-sm">(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "w-full border-gray-300 rounded-md p-2" %>
-      </div>
-
-      <div class="mb-4">
-        <%= f.label :password_confirmation, class: "block mb-1" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full border-gray-300 rounded-md p-2" %>
-      </div>
-
-      <div class="flex justify-between items-center">
-        <div class="flex">
-          <%= f.submit "Sign up", class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+        <div class="flex flex-col justify-center items-center mt-6">
+          <%= f.label :last_name, class: "font-bold mr-auto" %>
+          <%= f.text_field :last_name, autofocus: true, class: "lg:w-full rounded" %>
         </div>
       </div>
-    <% end %>
+
+
+        <div class="flex flex-col justify-center items-center lg:w-full mt-4">
+        <div class="flex flex-col w-full">
+          <%= f.label :username, class: "font-bold mr-auto" %>
+          <%= f.text_field :username, autofocus: true, class: "lg:w-full rounded" %>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center w-full mt-4">
+          <div class="flex flex-col w-full">
+            <%= f.label :email, class: "font-bold mr-auto" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "lg:w-full rounded" %>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center w-full mt-4">
+          <div class="flex flex-col w-full">
+          <%= f.label :password, class: "font-bold mr-auto" %>
+          <% if @minimum_password_length %>
+            <em class="text-sm mr-auto">(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "lg:w-full rounded" %>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center w-full mt-4">
+          <%= f.label :password_confirmation, class: "font-bold mr-auto" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "lg:w-full rounded" %>
+        </div>
+
+        <div class="flex flex-col justify-center items-center w-full mt-8">
+          <div class="flex" >
+            <%= f.submit "Create an Account", class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+          </div>
+        </div>
+        </div>
+      <% end %>
+
+    </div>
   </div>
+
+<div class="flex flex-col mt-10 justify-center items-center mb-20">
+  <p class="flex mb-2 font-bold">Already have an account?</p>
+  <%= link_to "Sign in", new_user_session_path, class: "items-center w-3/4 h-8 flex justify-center border-2 border-blue-400 text-blue-400 px-4 py-2 rounded-md hover:bg-blue-600" %>
 </div>
-</div>
+
+</main>

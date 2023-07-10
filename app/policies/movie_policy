@@ -1,0 +1,44 @@
+class MoviePolicy < ApplicationPolicy
+  before_action not_logged_in
+  attr_reader :user, :review
+  def initialize(user, review)
+    @user = user
+    @review = review
+  end
+  
+  def index?
+    true
+  end
+  
+  def show?
+    true
+  end
+  
+  def create?
+    binding.pry
+    only_admin
+  end
+  def new?
+    create?
+  end
+  
+  def update?
+    only_admin
+  end
+  def edit?
+    update?
+  end
+  
+  def destroy?
+    only_admin
+  end
+  
+  private
+  def only_admin
+    @user.admin?
+  end
+
+  def not_logged_in
+    @user.present?
+  end
+end

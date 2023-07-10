@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
     def set_movie
-      @movie = Movie.find(params[:id])
+      @movie = Movie.find(params[:id]) if @movie.present?
     end
 
     def set_user

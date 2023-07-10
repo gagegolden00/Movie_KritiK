@@ -15,8 +15,10 @@
     <main>
 
     <!-- navigation -->
+    <% if current_user %>
       <%= render 'devise/shared/nav'%>
-
+    <% end %>
+    
     <!-- if user logged in show username -->
       <% if user_signed_in?%>
         <%= "Signed In as #{current_user.email}"%>

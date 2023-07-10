@@ -1,14 +1,14 @@
-<nav class="md:text-black md:h-20 md:flex  md:items-center border-2 border-slate-300">
+<nav class="py-2  lg:text-black lg:h-20 lg:flex  lg:items-center border-2 border-slate-300">
   <%= link_to root_path, class: "mr-auto" do %>
     <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
-  <div class="hidden md:block md:flex md:ml-auto" style="display: flex !important;">
+  <div class="hidden md:flex md:ml-auto">
     <div class="flex items-center">
-      <%= link_to "Movie reviews", movies_path, class: "md:mr-10" %>
-      <% if @user.admin? %>
-        <%= link_to "New Review", "#", class: "md:mr-10" %>
+      <%= link_to "Movie reviews", movies_path, class: "lg:mr-10" %>
+      <% if @user.present? && @user.admin? %>
+        <%= link_to "New Review", "#", class: "lg:mr-10" %>
       <% else %>
-        <%= link_to "My reviews", "#", class: "md:mr-10" %>
+        <%= link_to "My reviews", "#", class: "lg:mr-10" %>
       <% end %>
     </div>
     <div class="inline-block">
@@ -29,21 +29,21 @@
 <!-- mobile view hamburger -->
 
 
-<div class="md:hidden flex justify-end border-5 border-red-700" data-controller="mobile-menu">
+<div class="lg:hidden flex justify-end" data-controller="mobile-menu">
   <label for="menu-toggle" class="cursor-pointer" data-action="click->mobile-menu#toggleMenu">
-    <svg class="h-6 w-6 text-black border-5 border-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label>
-  <div class="w-40 h-40 mt-7 absolute bg-slate-300 rounded-lg shadow-lg" data-mobile-menu-target="menuContent">
+  <div class="w-40 h-40 mt-7 absolute bg-slate-100 rounded-lg shadow-lg z-10" data-mobile-menu-target="menuContent">
     <%= link_to "Movie reviews", movies_path, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
     <% if @user&.admin? %>
       <%= link_to "New Review", reviews_search_reviews_path, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
     <% else %>
       <%= link_to "My reviews", "#", class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
     <% end %>
-    <p class="block px-4 py-2 text-sm text-black bg-slate-300">Account Link</p>
-    <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
+    <p class="block px-4 py-2 text-sm text-black bg-slate-100 hover:bg-gray-200">Account Link</p>
+    <%= link_to 'Logout', destroy_user_session_url, data: { turbo_method: :delete }, class: "block px-4 p-2 text-sm text-black hover:bg-gray-200" %>
   </div>
 </div>
 
