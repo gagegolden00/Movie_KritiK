@@ -32,22 +32,28 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
-    movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
-    @review = Review.new(review_params)
-
-
-    respond_to do |format|
-      if @review.save  
+      if params[:review][:api_movie_id].present?
+        movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
         movie = MovieCreator.create_movie(movie_data_hash)
-        @review.movie = movie # Associate the created movie with the review
-        @review.save 
-        format.html { redirect_to movies_path, notice: "Review was successfully created." }
-        format.json { render :show, status: :created, location: @review }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        notice "The movie you selected or the necessary details do not exist. Please try again."
       end
-    end
+
+      @review = Review.new(review_params)
+
+      respond_to do |format|
+        if @review.save  
+          
+          @review.movie = movie # Associate the created movie with the review
+          @review.save 
+          format.html { redirect_to movies_path, notice: "Review was successfully created." }
+          format.json { render :show, status: :created, location: @review }
+        else
+          binding.pry
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @review.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   # PATCH/PUT /reviews/1 or /reviews/1.json

@@ -1,5 +1,5 @@
 class Movie < ApplicationRecord
-  belongs_to :review, optional: true
+  has_one :review, dependent: :destroy
   # now if the movie for some reason is not saved we should use a job to go and retrieve the 
   # data from the API and save it then when browsing the movies index. Will need a condition to 
   # check if the movie is already in the database. and if not we use another api request but the trick 
