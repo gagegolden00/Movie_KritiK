@@ -48,16 +48,22 @@
 <% if @movies.present? %>
   <% @movies.each do |movie|  %>
     <div class="flex flex-col items-center w-1/2 lg:w-1/4 border-2 mt-10">
-      <div class="flex-row w-3/5 h-2/5 lg:w-3/5 lg:h-3/5 mb-2 mt-10 mr-10 ml-10 rounded overflow-hidden flex-grow">
+      <div class="flex-row w-3/5 h-2/5 lg:w-5/6 lg:h-5/6 mb-2 mt-10 mr-10 ml-10 rounded overflow-hidden flex-grow">
         <div class="aspect-w-3 aspect-h-4 border-2">
           <img src="<%= movie['Poster'] %>" alt="Movie Poster" class="object-cover object-center w-full h-full">
         </div>
       </div>
 
+      
       <div class="flex flex-col items-center w-full p-4 bottom-0">
         <h2 class="text-center mb-4 w-4/5"><%= "title" %></h2>
         <p>score</p>
-
+        <% if current_user.admin?%>
+       <div class="flex flex-col lg:flex-row lg:w-11/12 border-2 lg:justify-between mt-4"> 
+        <button class="border-2 border-blue-500 text-blue-500 w-20 lg:m-0">Edit</button>
+        <button class="border-2 border-blue-500 text-blue-500 w-20 mt-2 lg:m-0">Delete</button>
+      </div>
+      <% end %>
       </div>
     </div>
   <% end %>

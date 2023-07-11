@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
 
   def search
     retrieve_movie_list(params[:title])
-    if @movie.nil? || @movie.empty?
+    if @movies.nil? || @movies.empty?
       flash[:notice] = "Sorry, there are no movies that match your search."
     end
   end
