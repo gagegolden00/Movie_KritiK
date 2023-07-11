@@ -5,7 +5,7 @@
     <!-- Search form -->
     <%= form_with(model: @movie, url: reviews_search_reviews_path, method: :get, class: "flex flex-col lg:w-1/2") do |sel| %>
       <div class="flex items-center justify-center" data-controller="clearform">
-        <div class="flex flex-col lg:flex-row lg:justify-start lg:w-full lg:h-10">
+        <div class="flex flex-col lg:flex-row lg:justify-start w-full lg:h-10">
         <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "lg:w-3/5 rounded-md" %>
         <%= sel.submit "Search", class: "hidden lg:flex bg-blue-400 rounded-md lg:p-2 lg:ml-4 hover:cursor-pointer" %>
         <%= link_to "Reset search", "#", class: "hidden lg:flex w-30 h-10 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-2 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
@@ -15,25 +15,26 @@
         </div>
       </div>
       <div class="flex justify-between mt-4">
-        <button class="border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="ml-5">Year</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <button class="p-1 border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
+          <span class="lg:ml-5">Year</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </button>
-        <button class="border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="ml-5">Rating</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <button class="p-0.5 border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
+          <span class="lg:ml-5">Rating</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </button>        <button class="border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="ml-5">Genre</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <span class="p-1 lg:ml-5">Genre</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
-        </button>        <button class="border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="ml-5">Score</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        </button>        
+        <button class="p-1 border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
+          <span class="lg:ml-5">Score</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </button>

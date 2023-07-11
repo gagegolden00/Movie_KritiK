@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_173331) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_11_182657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_173331) do
     t.datetime "updated_at", null: false
     t.integer "score"
     t.string "api_movie_id"
-    t.bigint "movies_id"
-    t.index ["movies_id"], name: "index_reviews_on_movies_id", unique: true
+    t.bigint "movie_id"
+    t.index ["movie_id"], name: "index_reviews_on_movie_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,5 +49,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_173331) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "reviews", "movies", column: "movies_id"
+  add_foreign_key "reviews", "movies"
 end

@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "Sorry you dont have the proper permissions to perform this action"
       redirect_to root_path
     end
+
     def set_movie
       @movie = Movie.find(params[:id]) if @movie.present?
     end

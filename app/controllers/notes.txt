@@ -1,0 +1,34 @@
+class Movie
+  after_create :fetch_details
+
+  def fetch_details
+    details = API.call(movie_id)
+    self.description = details[:description]
+    self.save
+  end
+end
+
+class ReviewCreationService
+
+  def call(movie_id, review_params)
+    movie = Movie.find_or_create_by!(movie_id: movie_id)
+    review = Review.new(review_params)
+    review.movie = movie
+    review.save
+    review
+  end
+
+end
+
+class ReviewsController
+
+  def create
+    review = ReviewCreationService.new.call(params[:movie_id], review_params)
+    if review.persisted?
+      redirect_to review.movie, notice: 'Review was successfully created.'
+    else
+      redirect_to review.movie, alert: 'Review was not created.'
+    end
+  end
+
+end

@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
-  def search  
+  def search
     retrieve_movie_list(params[:title])
     if @movie.nil? || @movie.empty?
       flash[:notice] = "Sorry, there are no movies that match your search."
@@ -38,18 +38,15 @@ class ReviewsController < ApplicationController
       else
         notice "The movie you selected or the necessary details do not exist. Please try again."
       end
-
       @review = Review.new(review_params)
-
+      @review.movie_id = Movie.last.id
       respond_to do |format|
         if @review.save  
-          
-          @review.movie = movie # Associate the created movie with the review
+           # Associate the created movie with the review
           @review.save 
           format.html { redirect_to movies_path, notice: "Review was successfully created." }
           format.json { render :show, status: :created, location: @review }
         else
-          binding.pry
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @review.errors, status: :unprocessable_entity }
         end
