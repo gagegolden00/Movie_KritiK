@@ -21,14 +21,8 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
-
     @review = Review.new
     @movie_data = retrieve_selected_movie_details(params[:api_movie_id])
-    #binding.pry
-    #session[:movie_title] = params[:movie_title]
-    #binding.pry
-    
-
   end
   
 
@@ -38,13 +32,16 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
-
-    binding.pry
-    @movie_data = retrieve_selected_movie_details(params[:api_movie_id])
+    movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
     @review = Review.new(review_params)
+
+
     respond_to do |format|
-      if @review.save
-        format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
+      if @review.save  
+        movie = MovieCreator.create_movie(movie_data_hash)
+        @review.movie = movie # Associate the created movie with the review
+        @review.save 
+        format.html { redirect_to movies_path, notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -84,7 +81,7 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit(:content, :score)
+      params.require(:review).permit(:content, :score, :api_movie_id)
     end
 
     def retrieve_movies(title)

@@ -9,7 +9,7 @@
         <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "lg:w-3/5 rounded-md" %>
         <%= sel.submit "Search", class: "hidden lg:flex bg-blue-400 rounded-md lg:p-2 lg:ml-4 hover:cursor-pointer" %>
         <%= link_to "Reset search", "#", class: "hidden lg:flex w-30 h-10 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-2 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
-        <% if @user.present? && @user.admin?%>
+        <% if current_user.present? && current_user.admin?%>
           <%= link_to "New Review", reviews_search_reviews_path, class: "hidden lg:flex w-30 h-10 lg:ml-5 bg-green-400 rounded-md lg:py-2 lg:px-4 whitespace-nowrap"%>
         <%end%>
         </div>

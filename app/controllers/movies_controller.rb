@@ -5,7 +5,6 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @movies = Movie.all
-    @user = current_user
     @movie = Movie.new
     if params[:movie].present?
       @params_array = params[:movie].transform_values do |value|
@@ -29,7 +28,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/new
   def new
-    @movie = Movie.new.find(params[:movie_id])
+    @movie = Movie.find(params[:movie_id])
   end
 
   # GET /movies/1/edit
