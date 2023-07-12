@@ -3,8 +3,13 @@ class MovieCreator
         movie = Movie.new(
         title: movie_data_hash['Title'],
         year: movie_data_hash['Year'],
-        genre: movie_data_hash['Genre'],
-        rating: movie_data_hash['Rated']
+        rating: movie_data_hash['Rated'], 
+        runtime: movie_data_hash['Runtime'], 
+        director: movie_data_hash['Director'],
+        plot: movie_data_hash['Plot'],
+        language: movie_data_hash['Language'],
+        awards: movie_data_hash['Awards'], 
+        poster: movie_data_hash['Poster'],
         )
         movie.save!
     end

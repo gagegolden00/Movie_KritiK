@@ -33,17 +33,21 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
       if params[:review][:api_movie_id].present?
+        # create movie & genre
         movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
         movie = MovieCreator.create_movie(movie_data_hash)
+        genre = GenreCreator.create_genre(movie_data_hash)
+
       else
         notice "The movie you selected or the necessary details do not exist. Please try again."
       end
+
       @review = Review.new(review_params)
       @review.movie_id = Movie.last.id
+
+      
       respond_to do |format|
         if @review.save  
-           # Associate the created movie with the review
-          @review.save 
           format.html { redirect_to movies_path, notice: "Review was successfully created." }
           format.json { render :show, status: :created, location: @review }
         else

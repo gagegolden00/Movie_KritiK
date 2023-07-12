@@ -24,7 +24,6 @@ class MoviesController < ApplicationController
 
   # GET /movies/1 or /movies/1.json
   def show
-    movie_details
     @review = @movie.review
   end
   
@@ -37,7 +36,6 @@ class MoviesController < ApplicationController
   # GET /movies/1/edit
   def edit
     @review = @movie.review
-    movie_details
     render turbo_stream: turbo_stream.replace("edit_review_div", partial: 'reviews/edit', locals: { movie: @movie })
   end
 
@@ -91,12 +89,6 @@ class MoviesController < ApplicationController
     # Only allow a list of trusted parameters through
     def movie_params
       params.require(:movie).permit(:title, :year, :genre, :rating, :score)
-    end
-
-    def movie_details
-      api_id = @movie.review.api_movie_id
-      fetch_movie = FetchMovieDetailsJob.perform_now(api_id)
-      @movie_data = fetch_movie
     end
 
 end

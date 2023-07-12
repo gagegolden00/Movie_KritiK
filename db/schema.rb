@@ -10,17 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_182657) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_200909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "genres", force: :cascade do |t|
+    t.string "genre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "year"
-    t.string "genre"
     t.string "rating"
+    t.string "runtime"
+    t.string "director"
+    t.text "plot"
+    t.string "language"
+    t.string "awards"
+    t.string "poster"
+  end
+
+  create_table "movies_reviews", id: false, force: :cascade do |t|
+    t.bigint "movies_id"
+    t.bigint "genres_id"
+    t.index ["genres_id"], name: "index_movies_reviews_on_genres_id"
+    t.index ["movies_id"], name: "index_movies_reviews_on_movies_id"
+    
   end
 
   create_table "reviews", force: :cascade do |t|
