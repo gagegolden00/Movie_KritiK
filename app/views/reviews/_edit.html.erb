@@ -1,8 +1,5 @@
-
-
-
-  <%= form_with(model: @review, class: "w-full") do |form| %>
-
+<%= turbo_frame_tag :edit_review_form do%>
+<%= form_with(model: @review, url: edit_review_path(@review), method: :patch, class: "w-full") do |form| %>
     <%= form.hidden_field :api_movie_id, value: @movie_data['imdbID'] %>
     
     <% if @review.errors.any? %>
@@ -18,12 +15,12 @@
     
     <div class="my-5 ">
       <%= form.label :review %>
-      <%= form.text_area :content, rows: 10, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 mr-1 w-full lg:w-4/5" %>
+      <%= form.text_area :content, rows: 10, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="">
       <%= form.label :score%>
-      <%= form.text_field :score, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2" %>
+      <%= form.text_field :score, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 w-1/" %>
     </div>
 
 
@@ -32,7 +29,6 @@
       <%= form.submit value: "Save", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2" %>
       <%= link_to "Cancel", reviews_search_reviews_path, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
     </div>
+  <% end %>
 
 <% end %>
-
-

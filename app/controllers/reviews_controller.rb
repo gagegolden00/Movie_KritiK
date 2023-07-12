@@ -57,8 +57,8 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
-        format.json { render :show, status: :ok, location: @review }
+        # this is not right 
+        render turbo_stream: turbo_stream.replace('edit_review_form', partial: 'reviews/form', locals: { movie: @movie, review: @review })
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @review.errors, status: :unprocessable_entity }

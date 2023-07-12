@@ -48,25 +48,28 @@
           </div>
 
         </div>
+
         <div class="container lg:mx-auto lg:px-20 my-10 px-2 ">
         <% if current_user.admin? %>
           <div class="flex justify-between w-full border-4 mb-12 border-gray-300 bg-gray-100">
             <label class="text-left text-xl mt-3 ml-1">Reviewer Options</label>
             <div class="flex">
-              <%= link_to "Edit", edit_movie_path(@movie), class: "border-2 border-green-500 text-green-600 py-1 px-4 m-2"%>
+              <%= link_to "Edit Movie", edit_movie_path(@movie), data: { turbo_stream: 'edit_review_form' }, class: "border-2 border-green-500 text-green-600 py-1 px-4 m-2" %>
               <%= button_to "Delete", movie_path(@movie), method: :delete, data: { confirm: "Are you sure you want to delete this movie?" }, class: "border-2 border-red-500 text-red-600 py-1 px-4 m-2"%>
           </div>
         </div>
         <% end %>
-        <div class="lg:mx-auto lg:py-4">
-          <label class="text-xl">Critic Review</label>
-          <p class="mt-4"><%= @movie.review.content %></p>
-        </div>
-        <div class="flex flex-row text-align-center lg:p-4 my-10 border-4 border-gray-300 bg-gray-100">
-          <h1 class="text-4xl lg:w-3/4 mr-auto">Critic Score</h1>
-          <p class="w-1/4 text-3xl text-right"><%= @movie.review.score %>/10</p>
-        </div>
-        </div>
+
+        <!-- review div -->
+
+        <%= turbo_frame_tag :edit_review_form %>
+
+        <%= render 'review'%>
+
+
+
+
+
       <% else %>
         <p>No movie found.</p>
       <% end %>
