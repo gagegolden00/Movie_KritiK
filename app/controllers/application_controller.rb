@@ -11,6 +11,6 @@ class ApplicationController < ActionController::Base
     end
 
     def set_movie
-      @movie = Movie.find(params[:id]) if @movie.present?
+      @movie = Movie.find(params[:id])
     end
 end

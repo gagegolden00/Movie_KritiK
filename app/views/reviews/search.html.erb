@@ -2,6 +2,7 @@
   What movie would you like to review?
 </h1>
 
+
 <div>
   <%= form_with(model: @review, url: reviews_search_reviews_path, method: :get, class: "w-full") do |sel| %>
     <div class="flex items-center justify-center m-2" data-controller="clearform">
@@ -17,6 +18,11 @@
   <% if @movies && @movies['Search'].present? %>
     <h2 class="flex w-full justify-center mt-4">Search Results:</h2>
   <% end %>
+  <div class="flex justify-center w-full h">
+    <% if notice.present?%>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+  </div>
 
   <% if @movies.present? && @movies['Search'].present?%>
   <% @movies['Search'].each do |movie|  %>

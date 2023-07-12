@@ -24,7 +24,11 @@ class MoviesController < ApplicationController
 
   # GET /movies/1 or /movies/1.json
   def show
+    api_id = @movie.review.api_movie_id
+    fetch_movie = FetchMovieDetailsJob.perform_now(api_id)
+    @movie_data = fetch_movie
   end
+  
 
   # GET /movies/new
   def new
