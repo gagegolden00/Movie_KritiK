@@ -10,6 +10,7 @@ class MovieCreator
         language: movie_data_hash['Language'],
         awards: movie_data_hash['Awards'], 
         poster: movie_data_hash['Poster'],
+        actors: movie_data_hash['Actors']
         )
         movie.save!
     end

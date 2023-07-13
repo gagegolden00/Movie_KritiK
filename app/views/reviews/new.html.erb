@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <main class="flex flex-col lg:flex-wrap lg:w-4/5 lg:ml-20 border-2 ">
+  <main class="flex flex-col lg:flex-wrap lg:w-4/5">
     <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:my-4 lg:mr-auto  lg:ml-80 lg:w-3/4">
       <% if @movie_data.present? %>
       <h1 class="lg:hidden flex flex-row w-full justify-center mb-4 text-xl font-bold"><%= @movie_data['Title']%></h1>
@@ -24,7 +24,7 @@
           <h4 class="font-bold">Awards</h4>
           <p><%= @movie_data['Awards'] %></p>
         </div>  
-        <div class="w-full mt-1 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60 lg:w-1/2">
+        <div class="w-full mt-1 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60">
           <h4 class="font-bold sticky top-0 w-full bg-white">Summary</h4>
           <div>
           <p><%= @movie_data['Plot'] %>
