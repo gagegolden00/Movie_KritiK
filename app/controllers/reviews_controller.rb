@@ -33,10 +33,15 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
       if params[:review][:api_movie_id].present?
-        # create movie & genre
+
         movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
-        movie = MovieCreator.create_movie(movie_data_hash)
-        genre = GenreCreator.create_genre(movie_data_hash)
+
+        # create genre
+        genres = GenreCreator.create_genre(movie_data_hash)
+        
+        # create movie 
+        movie = MovieCreator.create_movie(movie_data_hash, genres)
+        
 
       else
         notice "The movie you selected or the necessary details do not exist. Please try again."

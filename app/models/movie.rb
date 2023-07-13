@@ -1,11 +1,9 @@
 class Movie < ApplicationRecord
   has_one :review, dependent: :destroy
-  has_and_belongs_to_many :genres, join_table: :movies_genres
-  # now if the movie for some reason is not saved we should use a job to go and retrieve the 
-  # data from the API and save it then when browsing the movies index. Will need a condition to 
-  # check if the movie is already in the database. and if not we use another api request but the trick 
-  # is to make sure the review gets assiciaoted with that movie or vice versa I guess. 
-
+  has_many :movie_genres
+  has_many :genres, :through => :movie_genres
+  #has_and_belongs_to_many :genres, join_table: :movie_genres
+  
   scope :filter_by_title, -> (title) { where("LOWER(REPLACE(title, ' ', '')) LIKE ?", "%#{title.downcase.gsub(' ', '')}%") if title.present? }
   scope :filter_by_genre, -> (genres) {
     genres = Array(genres).compact

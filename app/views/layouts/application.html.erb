@@ -20,8 +20,9 @@
     <% end %>
     
     <!-- if user logged in show username -->
-      <% if user_signed_in?%>
+      <% if user_signed_in? && current_user.admin? %>
         <%= "Signed In as #{current_user.email}"%>
+        <%= turbo_frame_tag :delete_modal%>
       <%end%>
 
     <!-- flash messages -->

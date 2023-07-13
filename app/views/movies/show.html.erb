@@ -19,8 +19,8 @@
             ">
               <h1 class="hidden lg:flex lg:text-3xl 
               "><%= @movie.title%></h1>
-              <p class="text-slate-700 lg:mt-1 
-              "><%= @movie.year %> | <%= @movie.runtime %> | <%= @movie.rating %> | <%= "@movie.genre"%></p>
+              <p class="text-slate-700 lg:mt-1 border-2"><%= @movie.year %> | <%= @movie.runtime %> | <%= @movie.rating %> | <%= structure_movie_genres(@movie) %> </p>
+                                                                  
             </div>
             <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2 
             ">
@@ -35,7 +35,7 @@
             <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2 
             ">
               <h4 class="font-bold">Awards</h4>
-              <p><%= @movie.rewards %></p>
+              <p><%= @movie.awards %></p>
             </div>  
             <div class="w-full mt-2 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60 lg:w-full 
             ">
@@ -77,4 +77,6 @@
     </main>
 
   </body>
+
+  <%= render 'devise/shared/delete'%>
 </html>

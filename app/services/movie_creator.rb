@@ -1,5 +1,5 @@
 class MovieCreator
-    def self.create_movie(movie_data_hash)
+    def self.create_movie(movie_data_hash, genres)
         movie = Movie.new(
         title: movie_data_hash['Title'],
         year: movie_data_hash['Year'],
@@ -12,6 +12,14 @@ class MovieCreator
         poster: movie_data_hash['Poster'],
         actors: movie_data_hash['Actors']
         )
+
+        genres.each do |genre_name|
+
+        genre = Genre.find_by(name: genre_name)
+
+        movie.genres << genre
+
+        end 
         movie.save!
     end
 end
