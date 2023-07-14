@@ -15,16 +15,15 @@ class MoviesController < ApplicationController
     if params && params[:movie].present?
       @movies = @movies.filter_movies(params[:movie]) 
     end
-
-    if @movies.nil? || @movies.empty?
-      flash[:notice] = "Sorry, there are no reviews that match your search."
-    end
   end
   
 
   # GET /movies/1 or /movies/1.json
   def show
     @review = @movie.review 
+    if @movie.nil?
+      redirect_to movies_url
+    end
   end
   
 
@@ -69,8 +68,9 @@ class MoviesController < ApplicationController
 
   # DELETE /movies/1 or /movies/1.json
   def destroy
-    @movie.destroy
-    redirect_to movies_url #, notice: "Movie was successfully destroyed."
+    if @movie.destroy
+      redirect_to movies_url, notice: "Movie was successfully destroyed."
+    end
   end
 
   private

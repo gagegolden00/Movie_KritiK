@@ -1,6 +1,6 @@
 <%= turbo_frame_tag :edit_review_form do%>
 <%= form_with(model: @review, url: edit_review_path(@review), method: :patch, class: "w-full") do |form| %>
-    <%= form.hidden_field :api_movie_id, value: @movie_data['imdbID'] %>
+    <%= form.hidden_field :api_movie_id, value: @movie.review.api_movie_id %>
     
     <% if @review.errors.any? %>
       <div>

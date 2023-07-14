@@ -1,6 +1,6 @@
 class Movie < ApplicationRecord
   has_one :review, dependent: :destroy
-  has_many :movie_genres
+  has_many :movie_genres, dependent: :destroy
   has_many :genres, :through => :movie_genres
   #has_and_belongs_to_many :genres, join_table: :movie_genres
   

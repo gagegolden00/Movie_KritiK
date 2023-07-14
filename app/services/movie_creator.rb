@@ -10,7 +10,8 @@ class MovieCreator
         language: movie_data_hash['Language'],
         awards: movie_data_hash['Awards'], 
         poster: movie_data_hash['Poster'],
-        actors: movie_data_hash['Actors']
+        actors: movie_data_hash['Actors'], 
+        #api_movie_id: movie_data_hash['
         )
 
         genres.each do |genre_name|
@@ -20,7 +21,8 @@ class MovieCreator
         movie.genres << genre
 
         end 
-        movie.save!
+        movie.save
+        movie
     end
 end
   

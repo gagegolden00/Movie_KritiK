@@ -58,11 +58,11 @@
 </div>
       <div class="flex flex-col items-center w-3/4 bottom-0 lg:p-2 border-2">
         <h2 class="text-center mb-2 w-4/5"><%= movie.title %></h2>
-        <p><%= movie.review.score %>/10</p>
+        <p><%= movie.review.score if movie.review.score.present? %>/10</p>
         <% if current_user.admin?%>
        <div class="flex flex-col justify-center items-center lg:flex-row lg:justify-between mt-4 border-2 w-full"> 
-        <button class="border-2 border-blue-500 text-blue-500 w-28 h-7 lg:h-9 mt-2 lg:m-0">Edit</button>
-        <%= link_to "Delete", movie_path(movie), data: { turbo_frame: "delete_modal" }, class: "text-center border-2 border-blue-500 text-blue-500 w-28 h-7 lg:h-9 lg:m-0 flex items-center justify-center" %>
+        <button class="border-2 border-blue-500 text-blue-500 w-28 h-7 lg:h-9 mt-2 lg:m-0 lg:mr-2">Edit</button>
+        <%= link_to "Delete", movie_path(movie), data: { turbo_frame: "delete_modal" }, class: "text-center border-2 border-blue-500 text-blue-500 w-28 h-7 mt-2 lg:h-9 lg:mt-0 lg:m-0 flex items-center justify-center" %>
       </div>
       <% end %>
       </div>

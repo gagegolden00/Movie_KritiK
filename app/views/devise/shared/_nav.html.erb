@@ -2,7 +2,7 @@
   <%= link_to root_path, class: "mr-auto ml-20" do %>
     <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
-  <div class="hidden md:flex md:ml-auto">
+  <div class="hidden lg:flex lg:ml-auto">
     <div class="flex items-center">
       <%= link_to "Movie reviews", movies_path, class: "lg:mr-10" %>
       <% if current_user.present? && current_user.admin? %>

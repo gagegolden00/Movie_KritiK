@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   }
   devise_scope :user do 
     root to: "pages#home"
+    get '/account', to: 'pages#account', as: :account
     get '/email_sent', to: 'users/passwords#email_sent', as: :email_sent
   end
 end

@@ -1,0 +1,30 @@
+<html>
+
+<body>
+    <main class="flex justtify-center w-screen h-screen flex-col border-2 border-red-700">
+    <div class="border-2 border-green-600 my-auto">
+        <div class="flex justify-center w-full border-2 border-blue-600">
+            <h1>Account Information</h1>
+        </div>
+        <div class="flex justify-between flex-row border-2 border-blue-600">
+            <p class="">Name</p>
+            <p><%= current_user.first_name  %> <%= current_user.last_name%></p>
+        </div>
+        <div class="flex justify-between border-2 border-blue-600">
+            <p>Username</p>
+            <p><%= current_user.username %></p>
+        </div>
+        <div class="flex justify-between border-2 border-blue-600">
+            <p>Email</p>
+            <p><%= current_user.email %></p>
+        </div>
+
+        <div class="flex justify-center border-2 border-blue-600 mb-72">
+            <%= link_to "Edit Profile", "#"%>
+            <%= link_to "Password Reset", "#"%>
+        </div>
+        </div>
+    </main>
+</body>
+
+</html>
