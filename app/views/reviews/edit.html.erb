@@ -1,10 +1,27 @@
-<h1>Editing review</h1>
-
-<%= render "form", review: @review %>
-
-<br>
-
-<div>
-  <%= link_to "Show this review", @review %> |
-  <%= link_to "Back to reviews", reviews_path %>
-</div>
+<%= turbo_frame_tag :edit_review_form do%>
+  <%= form_with(model: @review, class: "w-full") do |form| %>
+    <%= form.hidden_field :api_movie_id, value: @movie.review.api_movie_id if @movie.review.api_movie_id %>
+    <% if @review.errors.any? %>
+      <div>
+        <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+        <ul>
+          <% @review.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="my-5 ">
+      <%= form.label :review %>
+      <%= form.text_area :content, rows: 10, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+    <div class="">
+      <%= form.label :score%>
+      <%= form.text_field :score, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 w-1/" %>
+    </div>
+    <div class="actions mt-4 flex">
+      <%= form.submit value: "Save", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2" %>
+      <%= link_to "Cancel", movie_path(@movie), class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+<% end %>

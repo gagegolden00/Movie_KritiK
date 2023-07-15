@@ -29,6 +29,17 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1/edit
   def edit
+    @movie = @review.movie
+  end
+
+    # PATCH/PUT /reviews/1 or /reviews/1.json
+  def update
+    @movie = @review.movie
+      if @review.update(review_params)
+        redirect_to @movie
+      else
+        render :edit, status: :unprocessable_entity 
+      end
   end
 
   # POST /reviews or /reviews.json
@@ -64,18 +75,7 @@ class ReviewsController < ApplicationController
       end
   end
 
-  # PATCH/PUT /reviews/1 or /reviews/1.json
-  def update
-    respond_to do |format|
-      if @review.update(review_params)
-        # this is not right 
-        render turbo_stream: turbo_stream.replace('edit_review_form', partial: 'reviews/form', locals: { movie: @movie, review: @review })
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy

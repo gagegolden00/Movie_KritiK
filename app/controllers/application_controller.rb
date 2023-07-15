@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_action :set_movie, only: %i[show edit update destroy]
 
     include Pundit::Authorization
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -10,7 +9,5 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
 
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
+
 end

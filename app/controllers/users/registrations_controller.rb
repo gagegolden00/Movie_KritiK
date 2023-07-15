@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     prepend_before_action :require_no_authentication, only: [:new, :create, :cancel]
-    prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy]
+    prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :edit_account]
     prepend_before_action :set_minimum_password_length, only: [:new, :edit]
   
     # GET /resource/sign_up
@@ -35,8 +35,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
     # GET /resource/edit
     def edit
+      @user = current_user
       render :edit
     end
+
+    def update_account
+      @user = current_user
+      if @user.update(update_only_account_details_params)
+        # Handle successful update
+        redirect_to account_path, notice: "Account details updated successfully."
+      else
+        # Handle failed update
+        render :edit_account
+      end
+    end
+    
   
     # PUT /resource
     # We need to use a copy of the resource because we don't want to change
@@ -140,6 +153,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       def account_update_params
         # left role out 
         params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :first_name, :last_name, :username)
+      end
+
+      def update_only_account_details_params
+        params.require(:user).permit(:email, :first_name, :last_name, :username)
       end
   
     def translation_scope

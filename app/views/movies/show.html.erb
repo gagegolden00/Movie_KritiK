@@ -2,80 +2,73 @@
 <html>
   <body>
     <main class="flex flex-col lg:flex-wrap lg:w-full">
-    <div class="lg:ml-28 md:ml-24
-    ">
-      <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:my-4 lg:mx-auto lg:w-3/4 container 
-      ">
-        <% if @movie.present? %>
-          <h1 class="lg:hidden flex flex-row w-full justify-center text-xl font-bold mb-4 
-          "><%= @movie.title%></h1>
-          <img src="<%= @movie.poster %>" alt="Movie Poster" class="lg:mr-5 h-4/5 
-          ">
+      <div class="lg:ml-28 md:ml-24">
+        <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:my-4 lg:mx-auto lg:w-3/4 container">
+          <% if @movie.present? %>
+            <h1 class="lg:hidden flex flex-row w-full justify-center text-xl font-bold mb-4">
+              <%= @movie.title %>
+            </h1>
 
-          <div class="flex flex-wrap justify-center mx-1 lg:flex-nowrap lg:flex-col lg:mt-2 lg:mb-4 
-          ">
-            <div class="w-full text-center mt-4 lg:text-left lg:mr-60 lg:-mt-10 lg:w-4/5 
-            ">
-              <h1 class="hidden lg:flex lg:text-3xl 
-              "><%= @movie.title%></h1>
-              <p class="text-slate-700 lg:mt-1 border-2"><%= @movie.year %> | <%= @movie.runtime %> | <%= @movie.rating %> | <%= structure_movie_genres(@movie) %> </p>
-                                                                  
-            </div>
-            <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2 
-            ">
-              <h4 class="font-bold">Director</h4>
-              <p><%= @movie.director %></p>
-            </div>
-            <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2 
-            ">
-              <h4 class="font-bold">Actors</h4>
-              <p><%= @movie.actors  %></p>
-            </div>  
-            <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2 
-            ">
-              <h4 class="font-bold">Awards</h4>
-              <p><%= @movie.awards %></p>
-            </div>  
-            <div class="w-full mt-2 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60 lg:w-full 
-            ">
-              <h4 class="font-bold sticky top-0 w-full bg-white">Summary</h4>
-              <div>
-                <p><%= @movie.plot %></p>
+            <img src="<%= @movie.poster %>" alt="Movie Poster" class="lg:mr-5 h-4/5">
+
+            <div class="flex flex-wrap justify-center mx-1 lg:flex-nowrap lg:flex-col lg:mt-2 lg:mb-4">
+              <div class="w-full text-center mt-4 lg:text-left lg:mr-60 lg:-mt-10 lg:w-4/5">
+                <h1 class="hidden lg:flex lg:text-3xl">
+                  <%= @movie.title %>
+                </h1>
+                <p class="text-slate-700 lg:mt-1">
+                  <%= @movie.year %> | <%= @movie.runtime %> | <%= @movie.rating %> | <%= structure_movie_genres(@movie) %>
+                </p>
+              </div>
+              <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2">
+                <h4 class="font-bold">Director</h4>
+                <p><%= @movie.director %></p>
+              </div>
+              <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2">
+                <h4 class="font-bold">Actors</h4>
+                <p><%= @movie.actors %></p>
+              </div>
+              <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2">
+                <h4 class="font-bold">Awards</h4>
+                <p><%= @movie.awards %></p>
+              </div>
+              <div class="w-full mt-2 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60 lg:w-full">
+                <h4 class="font-bold sticky top-0 w-full bg-white">Summary</h4>
+                <div>
+                  <p><%= @movie.plot %></p>
+                </div>
               </div>
             </div>
-
-          </div>
-
+          <% else %>
+            <p>No movie found.</p>
+          <% end %>
         </div>
-
-        <div class="container lg:mx-auto lg:px-20 my-10 px-2 ">
+      </div>
+      <turbo-frame id="edit_review_form" class="container lg:mx-auto lg:px-20 my-10 px-2 border-2 border-green-600">
         <% if current_user.admin? %>
           <div class="flex justify-between w-full border-4 mb-12 border-gray-300 bg-gray-100">
             <label class="text-left text-xl mt-3 ml-1">Reviewer Options</label>
             <div class="flex">
-              <%= link_to "Edit Movie", edit_movie_path(@movie), data: { turbo_stream: 'edit_review_form' }, class: "border-2 border-green-500 text-green-600 py-1 px-4 m-2" %>
-              <%= link_to "Delete", movie_path(@movie), data: { turbo_frame: "delete_modal" }, class: "border-2 border-red-500 text-red-600 py-1 px-4 m-2"%>
+              <%= link_to "Edit Movie", edit_review_path(@movie.review.id), class: "border-2 border-green-500 text-green-600 py-1 px-4 m-2" %>
+              <%= link_to "Delete", movie_path(@movie), data: { turbo_frame: "delete_modal" }, class: "border-2 border-red-500 text-red-600 py-1 px-4 m-2" %>
+            </div>
           </div>
-        </div>
         <% end %>
-
-        <!-- review div -->
-        <%= turbo_frame_tag :edit_review_form %>
-        <%= render 'review'%>
-        <!---------------->
-
-
-      <% else %>
-        <p>No movie found.</p>
-      <% end %>
-      </div>
+        <div class="lg:mx-auto lg:py-4" id="edit_review_div">
+          <label class="text-xl">Critic Review</label>
+          <p class="mt-4"><%= @movie.review.content %></p>
+          
+        </div>
+        <div class="flex flex-row text-align-center lg:p-4 my-10 border-4 border-gray-300 bg-gray-100">
+          <h1 class="text-4xl lg:w-3/4 mr-auto">Critic Score</h1>
+          <p class="w-1/4 text-3xl text-right"><%= @movie.review.score %>/10</p>
+        </div>
+        </div>
+      </turbo-frame>
     </main>
-    
-    <div class="hidden" >
-      <%= render 'devise/shared/delete'%>
+    <div class="hidden">
+      <%= render 'devise/shared/delete' %>
     </div>
-
   </body>
-
-
 </html>
+

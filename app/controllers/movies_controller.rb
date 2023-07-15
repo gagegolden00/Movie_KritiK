@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_movie, only: %i[show edit update destroy]
   
 
   # GET /movies or /movies.json
@@ -35,7 +36,6 @@ class MoviesController < ApplicationController
   # GET /movies/1/edit
   def edit
     @review = @movie.review
-    render turbo_stream: turbo_stream.replace("edit_review_div", partial: 'reviews/edit', locals: { movie: @movie })
   end
 
   # POST /movies or /movies.json
@@ -85,6 +85,11 @@ class MoviesController < ApplicationController
     # Only allow a list of trusted parameters through
     def movie_params
       params.require(:movie).permit(:title, :year, :genre, :rating, :score)
+    end
+
+    
+    def set_movie
+      @movie = Movie.find(params[:id])
     end
 
 end
