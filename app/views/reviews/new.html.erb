@@ -32,6 +32,8 @@
         </div>
       </div>
     </div>
+      <%= turbo_frame_tag "error_messages" do%>
+      <% end %>
       <div class="flex flex-wrap justify-center mx-1 mb-10 lg:mb-10 lg:mt-4 lg:mr-72 lg:ml-80 lg:w-3/4">
         <%= render partial: 'form'%>
       </div>

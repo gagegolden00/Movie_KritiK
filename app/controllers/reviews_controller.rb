@@ -7,13 +7,12 @@ class ReviewsController < ApplicationController
   def search
     retrieve_movie_list(params[:title])
     if @movies.nil? || @movies.empty?
-      flash[:notice] = "Sorry, there are no movies that match your search."
+      
     end
   end
   
   # GET /reviews or /reviews.json
   def index
-    
   end
 
   # GET /reviews/1 or /reviews/1.json
@@ -25,6 +24,38 @@ class ReviewsController < ApplicationController
     @review = Review.new
     @movie_data = retrieve_selected_movie_details(params[:api_movie_id])
   end
+
+
+  # POST /reviews or /reviews.json
+  def create
+    if params[:review][:api_movie_id].present?
+      movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
+      # create genre
+      genres = GenreCreator.create_genre(movie_data_hash)
+      # create movie 
+      movie = MovieCreator.create_movie(movie_data_hash, genres)
+    else
+      notice "The movie you selected or the necessary details do not exist. Please try again."
+    end
+
+    @review = Review.new(review_params)
+    @review.movie_id = movie.id
+
+    
+    respond_to do |format|
+      if @review.save
+      format.html {redirect_to movies_path, notice: "Review was successfully created."}
+      else
+        movie.destroy
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(
+          'error_messages', 
+          partial: 'devise/shared/error_messages'
+        )}
+      end
+    end
+end
+
+
   
 
   # GET /reviews/1/edit
@@ -41,41 +72,6 @@ class ReviewsController < ApplicationController
         render :edit, status: :unprocessable_entity 
       end
   end
-
-  # POST /reviews or /reviews.json
-  def create
-      if params[:review][:api_movie_id].present?
-
-        movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
-
-        # create genre
-        genres = GenreCreator.create_genre(movie_data_hash)
-        
-        # create movie 
-        movie = MovieCreator.create_movie(movie_data_hash, genres)
-
-        binding.pry
-
-      else
-        notice "The movie you selected or the necessary details do not exist. Please try again."
-      end
-
-      @review = Review.new(review_params)
-      @review.movie_id = movie.id
-
-      
-      respond_to do |format|
-        if @review.save
-          format.html { redirect_to movies_path, notice: "Review was successfully created." }
-          format.json { render :show, status: :created, location: @review }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @review.errors, status: :unprocessable_entity }
-        end
-      end
-  end
-
-
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy

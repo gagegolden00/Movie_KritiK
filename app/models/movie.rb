@@ -2,37 +2,13 @@ class Movie < ApplicationRecord
   has_one :review, dependent: :destroy
   has_many :movie_genres, dependent: :destroy
   has_many :genres, :through => :movie_genres
-  #has_and_belongs_to_many :genres, join_table: :movie_genres
-  
-  scope :filter_by_title, -> (title) { where("LOWER(REPLACE(title, ' ', '')) LIKE ?", "%#{title.downcase.gsub(' ', '')}%") if title.present? }
-  scope :filter_by_genre, -> (genres) {
-    genres = Array(genres).compact
-    where(genre: genres) if genres.present?
-  }
-  
-  scope :filter_by_rating, -> (ratings) {
-    ratings = Array(ratings).compact.map(&:downcase)
-    where("LOWER(rating) IN (?)", ratings) if ratings.present?
-  }
-  
-  scope :filter_by_year, -> (years) {
-    years = Array(years).compact
-    where(year: years) if years.present?
-  }
-  
-  scope :filter_by_score, -> (scores) {
-    scores = Array(scores).compact
-    where(score: scores) if scores.present?
-  }
 
-  def self.filter_movies(params)
-    movies = self.all
-    movies = movies.filter_by_title(params[:title]) if params[:title].present?
-    movies = movies.filter_by_genre(params[:genre]) if params[:genre].present?
-    movies = movies.filter_by_rating(params[:rating]) if params[:rating].present?
-    movies = movies.filter_by_year(params[:year]) if params[:year].present?
-    movies = movies.filter_by_score(params[:score]) if params[:score].present?
-    movies
-  end
-    
+  # scope practice 
+  # scope :find_by_api_movie_id, -> (api_movie_id) { where(api_movie_id: api_movie_id) }
+
+  #scope :find_by_movie_id, -> (movie_id)
+
+
+
+
 end

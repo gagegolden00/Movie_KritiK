@@ -1,5 +1,5 @@
-<nav class="py-2  lg:text-black lg:h-20 lg:flex  lg:items-center border-2 border-slate-300">
-  <%= link_to root_path, class: "mr-auto ml-20" do %>
+<nav class="py-2  lg:text-black lg:h-20 lg:flex  lg:items-center border-2 border-slate-300 p-2">
+  <%= link_to root_path, class: "mr-auto ml-4 lg:ml-20" do %>
     <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
   <div class="hidden lg:flex lg:ml-auto">
@@ -25,11 +25,8 @@
     </div>
   </div>
 
-
 <!-- mobile view hamburger -->
-
-
-<div class="lg:hidden flex justify-end" data-controller="mobile-menu">
+<div class="lg:hidden flex justify-end mr-4" data-controller="mobile-menu">
   <label for="menu-toggle" class="cursor-pointer" data-action="click->mobile-menu#toggleMenu">
     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>

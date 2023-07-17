@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
     include Pundit::Authorization
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
     
@@ -8,6 +7,4 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "Sorry you dont have the proper permissions to perform this action"
       redirect_to root_path
     end
-
-
 end
