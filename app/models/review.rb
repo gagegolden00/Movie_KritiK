@@ -4,4 +4,5 @@ class Review < ApplicationRecord
     validates :content, presence: true
     validates :score, presence: true,
      numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
+    validates :api_movie_id, presence: true, uniqueness: true
 end

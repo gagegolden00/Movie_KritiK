@@ -4,6 +4,8 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
     console.log("Connect to clearform controller")
+    const form = document.getElementById("search-form");
+    form.reset();
   }
 
   clearForm(event) {

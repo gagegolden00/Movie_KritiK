@@ -13,13 +13,9 @@ class MovieCreator
         actors: movie_data_hash['Actors'], 
         #api_movie_id: movie_data_hash['
         )
-
         genres.each do |genre_name|
-
         genre = Genre.find_by(name: genre_name)
-
         movie.genres << genre
-
         end 
         movie.save
         movie

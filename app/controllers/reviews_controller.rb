@@ -2,12 +2,11 @@ class ReviewsController < ApplicationController
   require 'net/http' # for api requests
   before_action :set_review, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  #before_action :set_movie, only: %i[search]
 
   def search
     retrieve_movie_list(params[:title])
+    @api_movie_ids = Review.pluck(:api_movie_id)
     if @movies.nil? || @movies.empty?
-      
     end
   end
   
@@ -28,32 +27,33 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
-    if params[:review][:api_movie_id].present?
-      movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
-      # create genre
-      genres = GenreCreator.create_genre(movie_data_hash)
-      # create movie 
-      movie = MovieCreator.create_movie(movie_data_hash, genres)
-    else
-      notice "The movie you selected or the necessary details do not exist. Please try again."
-    end
-
-    @review = Review.new(review_params)
-    @review.movie_id = movie.id
-
-    
-    respond_to do |format|
-      if @review.save
-      format.html {redirect_to movies_path, notice: "Review was successfully created."}
+    ActiveRecord::Base.transaction do
+      if params[:review][:api_movie_id].present?
+        movie_data_hash = retrieve_selected_movie_details(params[:review][:api_movie_id])
+        # create genre
+        genres = GenreCreator.create_genre(movie_data_hash)
+        # create movie 
+        movie = MovieCreator.create_movie(movie_data_hash, genres)
       else
-        movie.destroy
+        notice "The movie you selected or the necessary details do not exist. Please try again."
+      end
+
+      @review = Review.new(review_params)
+      @review.movie_id = movie.id
+
+      respond_to do |format|
+        if @review.save
+        format.html {redirect_to movies_path, notice: "Review was successfully created."}
+        else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(
           'error_messages', 
           partial: 'devise/shared/error_messages'
         )}
+        end
       end
+      raise ActiveRecord::Rollback if @review.id.nil?
     end
-end
+  end
 
 
   
@@ -110,8 +110,5 @@ end
       api_request = URI("http://www.omdbapi.com/?apikey=#{@api_key}&i=#{CGI.escape(api_movie_id)}")
       response = Net::HTTP.get(api_request)
       JSON.parse(response)
-    end
-
-    def set_movie 
     end
 end

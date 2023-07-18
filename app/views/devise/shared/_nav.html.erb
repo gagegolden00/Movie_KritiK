@@ -26,13 +26,13 @@
   </div>
 
 <!-- mobile view hamburger -->
-<div class="lg:hidden flex justify-end mr-4" data-controller="mobile-menu">
-  <label for="menu-toggle" class="cursor-pointer" data-action="click->mobile-menu#toggleMenu">
+<div class="lg:hidden flex justify-end mr-4" data-controller="hamburger-toggle">
+  <label for="menu-toggle" class="cursor-pointer" data-action="click->hamburger-toggle#toggleMenu">
     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label>
-  <div class="w-40 h-40 mt-7 absolute bg-slate-100 rounded-lg shadow-lg z-10" data-mobile-menu-target="menuContent">
+  <div class="w-40 h-40 mt-7 absolute bg-slate-100 rounded-lg shadow-lg z-10" data-hamburger-toggle-target="menuContent">
     <%= link_to "Movie reviews", movies_path, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>
     <% if @user&.admin? %>
       <%= link_to "New Review", reviews_search_reviews_path, class: "block px-4 py-2 text-sm text-black hover:bg-gray-200" %>

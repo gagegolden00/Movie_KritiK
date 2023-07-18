@@ -1,77 +1,140 @@
-
-
 <body class="">
   <header class="flex justify-center">
-    <!-- Search form -->
-    <%= form_with(model: @movie, url: reviews_search_reviews_path, method: :get, class: "flex flex-col mt-2 lg:w-3/5") do |sel| %>
-      <div class="flex items-center justify-center" data-controller="clearform">
-        <div class="flex flex-col lg:flex-row lg:justify-between w-full lg:h-10 border-2">
-        <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: 'Search movies', class: "lg:w-3/5 rounded-md" %>
-        <%= sel.submit "Search", class: "hidden lg:flex bg-blue-400 lg:w-32 h-9 rounded-md lg:p-1.5 lg:ml-4 hover:cursor-pointer" %>
-        <%= link_to "Reset search", "#", class: "hidden lg:flex w-30 h-9 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-1 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
-        <% if current_user.present? && current_user.admin?%>
-          <%= link_to "New Review", reviews_search_reviews_path, class: "hidden lg:flex w-30 h-9 lg:ml-5 bg-green-400 rounded-md lg:py-1.5 lg:px-4 whitespace-nowrap"%>
-        <%end%>
+    <!-- Sorting & Filtering -->
+    <%= form_with(model: @movie, method: :get, id: "search-form", class: "flex flex-col mt-2 lg:w-3/5") do |sel| %>
+      <div data-controller="clearform">
+        <div class="flex items-center justify-center">
+          <!-- Text Search -->
+          <div class="flex flex-col lg:flex-row lg:justify-between w-full lg:h-10 border-2">
+            <%= sel.text_field :searched_title,  placeholder: 'Search movies', class: "lg:w-3/5 rounded-md" %>
+            <%= sel.submit "Search", class: "hidden lg:flex bg-blue-400 lg:w-32 h-9 rounded-md lg:p-1.5 lg:ml-4 hover:cursor-pointer" %>
+            <%= link_to "Reset search", "#", class: "hidden lg:flex w-30 h-9 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-1 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
+            <% if current_user.present? && current_user.admin? %>
+              <%= link_to "New Review", reviews_search_reviews_path, class: "hidden lg:flex w-30 h-9 lg:ml-5 bg-green-400 rounded-md lg:py-1.5 lg:px-4 whitespace-nowrap" %>
+            <% end %>
+          </div>
         </div>
-      </div>
-      <div class="flex justify-between mt-4">
-        <button class="p-1 border-2 border-gray-200 w-1/5 text-start w-pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="lg:ml-5">Year</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>
-        <button class="p-0.5 border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="lg:ml-5">Rating</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>        <button class="border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="p-1 lg:ml-5">Genre</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>        
-        <button class="p-1 border-2 border-gray-200 w-1/5 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">
-          <span class="lg:ml-5">Score</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:hidden lg:flex lg:w-6 lg:h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>
-      </div>
 
+        <!-- Drop Downs -->
+        <div data-controller="filter-dropdown" class="flex justify-between mt-4">
+
+          <!-- genre selection -->
+          <div class="w-40">
+            <!-- the button -->
+            <button data-action="click->filter-dropdown#toggleGenre" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">              
+              <span class="lg:ml-5 ml-2">Genre</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:flex lg:w-6 lg:h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+            <!-- the menu -->
+            <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
+              <div data-filter-dropdown-target="genreContent">
+                <% @avaliable_genres.each do |genre| %>
+                  <div class="pl-2">
+                    <%= sel.check_box :selected_genres, { multiple: true, include_hidden: false}, genre %>                  
+                    <%= label_tag(genre) %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- year selection -->
+          <div class="w-40">
+            <!-- the button -->
+            <button data-action="click->filter-dropdown#toggleYear" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">              
+              <span class="lg:ml-5 ml-2">Year</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:flex lg:w-6 lg:h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+            <!-- the menu -->
+            <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
+              <div data-filter-dropdown-target="yearContent">
+                <% @formatted_avaliable_years.each do |year| %>
+                  <div class="pl-2 py-0.5">
+                    <%= sel.check_box :selected_years, { multiple: true, include_hidden: false}, year %>
+                    <%= label_tag(year) %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rating Selection -->
+          <div class="w-40">
+            <!-- the button -->
+            <button data-action="click->filter-dropdown#toggleRating" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">              
+              <span class="lg:ml-5 ml-2">Rating</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:flex lg:w-6 lg:h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+            <!-- the menu -->
+            <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
+              <div data-filter-dropdown-target="ratingContent">
+                <% @available_ratings.each do |rating| %>
+                  <div class="pl-2 py-0.5">
+                    <%= sel.check_box :selected_ratings, { multiple: true, include_hidden: false}, rating %>
+                    <%= label_tag(rating) %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Score Selection -->
+          <div class="w-40">
+            <!-- the button -->
+            <button data-action="click->filter-dropdown#toggleScore" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">              
+              <span class="lg:ml-5 ml-2">Score</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:flex lg:w-6 lg:h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+            <!-- the menu -->
+            <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
+              <div data-filter-dropdown-target="scoreContent">
+                <% @available_scores.each do |score| %>
+                  <div class="pl-2 py-0.5">
+                    <%= sel.check_box :selected_scores, { multiple: true, include_hidden: false}, score %>
+                    <%= label_tag(score) %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
 
+
   </header>
   <main class="flex flex-row flex-wrap">
-<% if @movies.present? %>
-  <% @movies.each do |movie|  %>
-    <div class="flex flex-col items-center w-1/2 lg:w-1/4 mt-10">
-    
-      <div class="flex-row w-3/5 h-2/5 lg:w-3/4 lg:h-5/6 mb-2 mt-10 mr-10 ml-10 rounded flex-grow">
-        <%= link_to movie_path(movie), class: "styling-none" do %>
-          <div class="aspect-w-3 aspect-h-4">
-            <img src="<%= movie.poster %>" alt="Movie Poster" class="object-cover hover:object-contain object-center w-full h-full">
+    <% if @movies.present? %>
+      <% @movies.each do |movie| %>
+        <div class="flex flex-col items-center w-1/2 lg:w-1/4 mt-10">
+
+          <div class="flex-row w-3/5 h-2/5 lg:w-3/4 lg:h-5/6 mb-2 mt-10 mr-10 ml-10 rounded flex-grow">
+            <%= link_to movie_path(movie), class: "styling-none" do %>
+              <div class="aspect-w-3 aspect-h-4">
+                <img src="<%= movie.poster %>" alt="Movie Poster" class="object-cover hover:object-contain object-center w-full h-full">
+              </div>
+            <% end %>
           </div>
-        <% end %>
-      </div>
-      <div class="flex flex-col items-center w-3/4 bottom-0 lg:p-2 border-2">
-        <h2 class="text-center mb-2 w-4/5"><%= movie.title %></h2>
-        <p><%= movie.review.score if movie.present? %>/10</p>
-        <% if current_user.admin?%>
-       <div class="flex flex-col justify-center items-center lg:flex-row lg:justify-between mt-4 border-2 w-full"> 
-        <%= link_to "Edit", movie_path(movie), class: "flex justify-center items-center border-2 border-blue-500 text-blue-500 w-28 h-7 lg:h-9 mt-2 lg:m-0 lg:mr-2"%>
-        <%= link_to "Delete", movie_path(movie), data: { turbo_frame: "delete_modal" }, class: "text-center border-2 border-blue-500 text-blue-500 w-28 h-7 mt-2 lg:h-9 lg:mt-0 lg:m-0 flex items-center justify-center" %>
-      </div>
+          <div class="flex flex-col items-center w-3/4 bottom-0 lg:p-2">
+            <h2 class="text-center mb-2 w-4/5"><%= movie.title %></h2>
+            <p><%= movie.review.score if movie.present? %>/10</p>
+            <% if current_user.admin? %>
+              <div class="flex flex-col justify-center items-center lg:flex-row lg:justify-between mt-4 w-full">
+                <%= link_to "Edit", movie_path(movie), class: "flex justify-center items-center border-2 border-blue-500 text-blue-500 w-28 h-7 lg:h-9 mt-2 lg:m-0 lg:mr-2" %>
+                <%= link_to "Delete", movie_path(movie), data: { turbo_frame: "delete_modal" }, class: "text-center border-2 border-blue-500 text-blue-500 w-28 h-7 mt-2 lg:h-9 lg:mt-0 lg:m-0 flex items-center justify-center" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
       <% end %>
-      </div>
-    </div>
-  <% end %>
-  <% end %>
-    </div>
+    <% end %>
   </main>
 </body>
-
-
-

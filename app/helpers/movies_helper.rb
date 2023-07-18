@@ -1,9 +1,7 @@
 module MoviesHelper
 
     def structure_movie_genres(movie)
-
         unformatted_movie_genres = ""
-  
         movie.genres.each do |genre|
           unformatted_movie_genres << genre.name
         end
