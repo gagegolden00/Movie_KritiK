@@ -1,29 +1,20 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_movie, only: %i[show edit update destroy]
-  
-
   # GET /movies or /movies.json
   def index
     get_available_genres
     get_available_years
     get_available_ratings
-
-    if params[:commit].present?
-      get_avaliable_scores(params[:selected_score])
-      
-      # This causes N+1 outcome !!!
-      # @movies = Movie.search_by_title(params[:search][:title])
-      @movies = Movie.includes(:review).search_by_title(params[:searched_title])
+    @movies = Movie.includes(:review)
+    if params.to_unsafe_h.length > 3
+      @movies = Movie.search_by_title(params[:searched_title]).search_by_genre(params[:searched_genre]).search_by_year(params[:searched_year]).search_by_rating(params[:searched_rating]).search_by_score(params[:searched_score])
+      if @movies.nil?
+      end
     else 
-      # this along with the above comment causes N+1 outcome !!!
-      # @movies = Movie.all
       @movies = Movie.includes(:review).all
     end
-
   end
-  
-
   # GET /movies/1 or /movies/1.json
   def show
     @review = @movie.review 
@@ -84,7 +75,7 @@ class MoviesController < ApplicationController
     end
     # Only allow a list of trusted parameters through
     def movie_params
-      params.require(:movie).permit(:title, :year, :genre, :rating, :score)
+      params.require(:movie).permit(:searched_title, :searched_year, :searched_genre, :searched_rating, :searched_score)
     end
     # set movie
     def set_movie
@@ -115,12 +106,4 @@ class MoviesController < ApplicationController
         "TV-G", "TV-PG", "TV-14", "TV-MA", 
         "N/A"]
     end
-
-    def get_avaliable_scores(selected_score)
-      scr = selected_score.to_i
-      @scores_to_display = []
-      (scr..10).each do |i|
-      @scores_to_display << i.to_s
-      end
-  end
 end
