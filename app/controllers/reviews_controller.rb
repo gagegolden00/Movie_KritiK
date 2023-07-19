@@ -5,9 +5,8 @@ class ReviewsController < ApplicationController
 
   def search
     retrieve_movie_list(params[:title])
-    @api_movie_ids = Review.pluck(:api_movie_id)
-    if @movies.nil? || @movies.empty?
-    end
+    @search_performed = !params[:title].nil?
+    @exsisting_movies_with_api_movie_id = Review.joins(:movie).select('reviews.api_movie_id, reviews.movie_id')
   end
 
   # GET /reviews or /reviews.json
@@ -42,7 +41,7 @@ class ReviewsController < ApplicationController
 
       respond_to do |format|
         if @review.save
-          format.html { redirect_to movies_path, notice: "Review was successfully created." }
+          format.html { redirect_to movie_path(@review.movie), notice: "Review was successfully created." }
         else
           format.turbo_stream {
             render turbo_stream: turbo_stream.replace(

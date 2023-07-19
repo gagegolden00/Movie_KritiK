@@ -7,9 +7,10 @@ class MoviesController < ApplicationController
     get_available_years
     get_available_ratings
     @movies = Movie.includes(:review)
-    if params.to_unsafe_h.length > 3
+    if params
       @movies = Movie.search_by_title(params[:searched_title]).search_by_genre(params[:searched_genre]).search_by_year(params[:searched_year]).search_by_rating(params[:searched_rating]).search_by_score(params[:searched_score])
       if @movies.nil?
+        binding.pry
       end
     else
       @movies = Movie.includes(:review).all

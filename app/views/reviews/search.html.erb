@@ -1,13 +1,11 @@
 <h1 class="flex justify-center font-bold m-4">
   What movie would you like to review?
 </h1>
-
-
 <div>
   <%= form_with(model: @review, url: reviews_search_reviews_path, method: :get, class: "w-full") do |sel| %>
     <div class="flex items-center justify-center m-2" data-controller="clearform">
       <%= sel.text_field :title, value: params.dig(:movie, :title), placeholder: "Search movies", class: "w-1/2 p-2 rounded-md" %>
-      <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2" %>
+      <%= sel.submit "Search", class: "bg-blue-400 rounded-md p-2 ml-2 hover:cursor-pointer" %>
       <%= link_to "Reset", "#", class: "bg-blue-400 rounded-md py-2 px-4 ml-2", "data-action" => "click->clearform#clearForm" %>
     </div>
   <% end %>
@@ -17,9 +15,9 @@
 
   <% if @movies && @movies["Search"].present? %>
     <h2 class="flex w-full justify-center mt-4">Search Results:</h2>
-  <% end %>
+  
 
-  <% if @movies.present? && @movies["Search"].present? %>
+<% if @movies.present? && @movies["Search"].present? %>
   <% @movies["Search"].each do |movie| %>
     <div class="flex flex-col items-center w-1/2 lg:w-1/4">
       <div class="w-3/5 h-2/5 lg:w-3/5 lg:h-3/5 mb-2 mt-10 mr-10 ml-10 rounded overflow-hidden flex-grow">
@@ -32,15 +30,30 @@
         <h2 class="text-center mb-4 w-4/5"><%= movie["Title"] %></h2>
 
         <div class="flex justify-center align-baseline">
-          <% if @api_movie_ids.include?(movie["imdbID"]) %>
-            <%= link_to "Edit", "#", class: "flex justify-center items-center border-2 border-slate-300 text-purple-600 rounded-md py-1 px-4 m-2 w-20" %>
-            <%= link_to "Delete", movie_path(review.movie.id), data: { turbo_frame: "delete_modal" }, class: "border-2 border-slate-300 text-purple-600 rounded-md py-1 px-4 m-2 w-20" %>
+          <% if @exsisting_movies_with_api_movie_id.map(&:api_movie_id).include?(movie["imdbID"]) %>
+            <% # Movie has a review associated, display "Edit" and "Delete" buttons %>
+            <% review = @exsisting_movies_with_api_movie_id.find { |r| r.api_movie_id == movie["imdbID"] } %>
+            <%= link_to "Edit", movie_path(review.movie_id), class: "flex justify-center items-center rounded-md h-10 w-20 py-1 px-4 m-2 w-20 border-2 border-green-700 bg-green-50 hover:bg-green-100 text-green-700" %>
+            <%= link_to "Delete", movie_path(review.movie_id), data: { turbo_frame: "delete_modal" }, class: "flex justify-center items-center text-center rounded-md py-1 px-4 m-2 w-20 border-2 border-red-700 bg-red-50 hover:bg-red-100 text-red-700" %>
           <% else %>
-            <%= link_to "Review", new_review_path(api_movie_id: movie["imdbID"]), class: "border-2 border-slate-300 text-purple-600 rounded-md p-2 lg:py-1 lg:px-4 m-2" %>
+            <% # Movie doesn't have a review associated, display "Review" button %>
+            <%= link_to "Review", new_review_path(api_movie_id: movie["imdbID"]), class: "rounded-md flex justify-center items-center text-center h-10 w-20 p-2 lg:py-1 lg:px-4 m-2 border-2 border-green-700 bg-green-50 hover:bg-green-100 text-green-700" %>
           <% end %>
         </div>
       </div>
     </div>
   <% end %>
-  <% end %>
+<% end %>
+
+<% elsif @search_performed && @movies.nil? %>
+<div class="flex h-3/4 w-screen items-center justify-center">
+  <div class="flex justify-center items-center w-1/2 h-16 rounded">
+    <h1 class=" text-center text-3xl">No Movies Found</h1>
+  </div>
+</div>
+  <% else %>
+
+
+<% end %>
+
 </div>

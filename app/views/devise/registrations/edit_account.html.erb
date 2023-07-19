@@ -29,9 +29,9 @@
                     <%= form.label :Current_Password, class: "font-bold" %>
                     <%= form.password_field :current_password, autocomplete: "current-password", class: "border-2 rounded lg:mb-0" %>
                 </div>
-                <div class="mt-10 flex justify-between w-4/5 lg:w-3/5 border-2">
-                    <%= form.submit value: "Submit", class: "border-2 border-green-300 bg-green-200 w-32 h-10 rounded hover:cursor-pointer" %>
-                    <%= link_to "Cancel", account_path, class: "flex justify-center items-center rounded h-10 w-32 border-2 border-red-300 bg-red-200 hover:cursor-pointer" %>
+                <div class="mt-10 flex justify-between w-4/5 lg:w-3/5">
+                    <%= form.submit value: "Submit", class: "border-2 border-green-600 bg-green-50 hover:bg-green-100 text-green-700 w-32 h-10 rounded hover:cursor-pointer" %>
+                    <%= link_to "Cancel", account_path, class: "flex justify-center items-center rounded h-10 w-32 border-2 border-red-600 bg-red-50 hover:bg-red-100 text-red-700 hover:cursor-pointer" %>
                 </div>
 
             </div>
