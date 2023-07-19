@@ -5,7 +5,7 @@
       <div data-controller="clearform">
         <div class="flex items-center justify-center">
           <!-- Text Search -->
-          <div class="flex flex-col lg:flex-row lg:justify-between w-full lg:h-10 border-2">
+          <div class="flex flex-col lg:flex-row lg:justify-between w-full lg:h-10">
             <%= sel.text_field :searched_title, placeholder: "Search movies", class: "lg:w-3/5 rounded-md" %>
             <%= sel.submit "Search", class: "hidden lg:flex bg-blue-400 lg:w-32 h-9 rounded-md lg:p-1.5 lg:ml-4 hover:cursor-pointer" %>
             <%= link_to "Reset search", "#", class: "hidden lg:flex w-30 h-9 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-1 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
