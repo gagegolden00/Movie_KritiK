@@ -85,7 +85,7 @@
           </div>
 
           <!-- Score Selection -->
-          <div class="w-40">
+          <div class="">
             <!-- the button -->
             <button data-action="click->filter-dropdown#toggleScore" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between">              
               <span class="lg:ml-5 ml-2">Score</span>
@@ -94,14 +94,9 @@
               </svg>
             </button>
             <!-- the menu -->
-            <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
-              <div data-filter-dropdown-target="scoreContent">
-                <% @available_scores.each do |score| %>
-                  <div class="pl-2 py-0.5">
-                    <%= sel.check_box :selected_scores, { multiple: true, include_hidden: false}, score %>
-                    <%= label_tag(score) %>
-                  </div>
-                <% end %>
+            <div class="max-h-32 max-w-62 w-none pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
+              <div data-filter-dropdown-target="scoreContent" class="m-4 h-32">
+                <%= sel.range_field :selected_scores, id: "slider", in: 0..10%>
               </div>
             </div>
           </div>

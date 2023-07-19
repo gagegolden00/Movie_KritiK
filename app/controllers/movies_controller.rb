@@ -8,9 +8,10 @@ class MoviesController < ApplicationController
     get_available_genres
     get_available_years
     get_available_ratings
-    get_available_scores
 
-    if params[:searched_title].present?
+    if params[:commit].present?
+      get_avaliable_scores(params[:selected_score])
+      
       # This causes N+1 outcome !!!
       # @movies = Movie.search_by_title(params[:search][:title])
       @movies = Movie.includes(:review).search_by_title(params[:searched_title])
@@ -114,9 +115,12 @@ class MoviesController < ApplicationController
         "TV-G", "TV-PG", "TV-14", "TV-MA", 
         "N/A"]
     end
-    def get_available_scores
-      @available_scores = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    end
 
-
+    def get_avaliable_scores(selected_score)
+      scr = selected_score.to_i
+      @scores_to_display = []
+      (scr..10).each do |i|
+      @scores_to_display << i.to_s
+      end
+  end
 end
