@@ -1,27 +1,27 @@
 class DeviseMailersController < Devise::Mailer
-    ## DEFAULT DEVISE MAILERS CLASS
-    include Devise::Mailers::Helpers
+  ## DEFAULT DEVISE MAILERS CLASS
+  include Devise::Mailers::Helpers
 
-    def confirmation_instructions(record, token, opts = {})
+  def confirmation_instructions(record, token, opts = {})
     @token = token
     devise_mail(record, :confirmation_instructions, opts)
-    end
+  end
 
-    def reset_password_instructions(record, token, opts = {})
+  def reset_password_instructions(record, token, opts = {})
     @token = token
     devise_mail(record, :reset_password_instructions, opts)
-    end
+  end
 
-    def unlock_instructions(record, token, opts = {})
+  def unlock_instructions(record, token, opts = {})
     @token = token
     devise_mail(record, :unlock_instructions, opts)
-    end
+  end
 
-    def email_changed(record, opts = {})
+  def email_changed(record, opts = {})
     devise_mail(record, :email_changed, opts)
-    end
+  end
 
-    def password_change(record, opts = {})
+  def password_change(record, opts = {})
     devise_mail(record, :password_change, opts)
-    end
+  end
 end

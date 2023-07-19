@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :edit_review_form do%>
+<%= turbo_frame_tag :edit_review_form do %>
   <%= form_with(model: @review, class: "w-full") do |form| %>
     <%= form.hidden_field :api_movie_id, value: @movie.review.api_movie_id if @movie.review.api_movie_id %>
     <% if @review.errors.any? %>
@@ -16,7 +16,7 @@
       <%= form.text_area :content, rows: 10, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
     <div class="">
-      <%= form.label :score%>
+      <%= form.label :score %>
       <%= form.text_field :score, class: "block shadow rounded-md border-4 border-slate-300 outline-none px-3 py-2 mt-2 w-1/" %>
     </div>
     <div class="actions mt-4 flex">

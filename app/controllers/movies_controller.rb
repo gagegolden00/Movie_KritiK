@@ -11,18 +11,18 @@ class MoviesController < ApplicationController
       @movies = Movie.search_by_title(params[:searched_title]).search_by_genre(params[:searched_genre]).search_by_year(params[:searched_year]).search_by_rating(params[:searched_rating]).search_by_score(params[:searched_score])
       if @movies.nil?
       end
-    else 
+    else
       @movies = Movie.includes(:review).all
     end
   end
+
   # GET /movies/1 or /movies/1.json
   def show
-    @review = @movie.review 
+    @review = @movie.review
     if @movie.nil?
       redirect_to movies_url
     end
   end
-  
 
   # GET /movies/new
   def new
@@ -69,41 +69,48 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def filter_attribute_value(value)
-      Array(value).reject(&:empty?)
+
+  # Use callbacks to share common setup or constraints between actions.
+  def filter_attribute_value(value)
+    Array(value).reject(&:empty?)
+  end
+
+  # Only allow a list of trusted parameters through
+  def movie_params
+    params.require(:movie).permit(:searched_title, :searched_year, :searched_genre, :searched_rating, :searched_score)
+  end
+
+  # set movie
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
+
+  # for finding genres
+  def get_available_genres
+    @avaliable_genres = Genre.pluck(:name).sort
+  end
+
+  # for finding & formatting years
+  def get_available_years
+    @movie_years = Movie.pluck(:year).sort
+    @formatted_avaliable_years = []
+    @movie_years.map do |year|
+      truncated_year = year.slice(0, 4)
+      @formatted_avaliable_years << truncated_year
+      @earliest_year = @formatted_avaliable_years.first
+      @latest_year = @formatted_avaliable_years.last
+      #binding.pry
     end
-    # Only allow a list of trusted parameters through
-    def movie_params
-      params.require(:movie).permit(:searched_title, :searched_year, :searched_genre, :searched_rating, :searched_score)
-    end
-    # set movie
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
-    # for finding genres
-    def get_available_genres
-      @avaliable_genres = Genre.pluck(:name).sort
-    end
-    # for finding & formatting years
-    def get_available_years
-      @movie_years = Movie.pluck(:year).sort
-      @formatted_avaliable_years = []
-      @movie_years.map do |year|
-        truncated_year = year.slice(0, 4) 
-        @formatted_avaliable_years << truncated_year
-        @earliest_year = @formatted_avaliable_years.first
-        @latest_year = @formatted_avaliable_years.last
-        #binding.pry
-      end
-      @formatted_avaliable_years.uniq!
-    end
-    # for finding ratings
-    def get_available_ratings
-      @available_ratings = [
-        "G", "PG", "PG-13", "R", 
-        "NC-17", "TV-Y", "TV-Y7",
-        "TV-G", "TV-PG", "TV-14", "TV-MA", 
-        "N/A"]
-    end
+    @formatted_avaliable_years.uniq!
+  end
+
+  # for finding ratings
+  def get_available_ratings
+    @available_ratings = [
+      "G", "PG", "PG-13", "R",
+      "NC-17", "TV-Y", "TV-Y7",
+      "TV-G", "TV-PG", "TV-14", "TV-MA",
+      "N/A",
+    ]
+  end
 end

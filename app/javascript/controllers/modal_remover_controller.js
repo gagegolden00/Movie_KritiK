@@ -6,7 +6,7 @@ export default class extends Controller {
     // SEE IF WERE CONNECTED TO THE CONTROLLER WITH THIS //
     console.log("Connected modal remover =)")
   }
-  hideModal(){
+  hideModal() {
     this.element.remove()
   }
 }

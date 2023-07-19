@@ -17,13 +17,13 @@
       </div>
       <div class="flex items-center justify-center">
         <div class="flex justify-center items-center w-">
-          <%= f.submit "Submit", data: {turbo_frame: "_top", action: 'redirect_to tasks_url'},  class: "mt-4 mb-2 w-52 items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+          <%= f.submit "Submit", data: { turbo_frame: "_top", action: "redirect_to tasks_url" }, class: "mt-4 mb-2 w-52 items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
         </div>
       </div>
     <% end %>
   </div>
   <div class="mt-4 text-sm text-center">
-    <%= link_to "Forgot Password?", new_password_path(resource), class: "text-purple-400 font-bold"%>
+    <%= link_to "Forgot Password?", new_password_path(resource), class: "text-purple-400 font-bold" %>
   </div>
   <div class=" mt-10 lg:mt-16 mx-auto w-60 h-40 flex flex-col justify-center items-center bg-slate-100 mb-10">
     <p class="flex items-center justify-center text-black px-4 ml-auto text-2xl text-center">Create an Account Today!</p>

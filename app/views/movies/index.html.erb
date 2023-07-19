@@ -6,7 +6,7 @@
         <div class="flex items-center justify-center">
           <!-- Text Search -->
           <div class="flex flex-col lg:flex-row lg:justify-between w-full lg:h-10 border-2">
-            <%= sel.text_field :searched_title,  placeholder: 'Search movies', class: "lg:w-3/5 rounded-md" %>
+            <%= sel.text_field :searched_title, placeholder: "Search movies", class: "lg:w-3/5 rounded-md" %>
             <%= sel.submit "Search", class: "hidden lg:flex bg-blue-400 lg:w-32 h-9 rounded-md lg:p-1.5 lg:ml-4 hover:cursor-pointer" %>
             <%= link_to "Reset search", "#", class: "hidden lg:flex w-30 h-9 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-1 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
             <% if current_user.present? && current_user.admin? %>
@@ -17,7 +17,6 @@
 
         <!-- Drop Downs -->
         <div data-controller="filter-dropdown" class="flex justify-between mt-4">
-
           <!-- genre selection -->
           <div class="w-40">
             <!-- the button -->
@@ -32,7 +31,7 @@
               <div data-filter-dropdown-target="genreContent">
                 <% @avaliable_genres.each do |genre| %>
                   <div class="pl-2">
-                    <%= sel.check_box :selected_genres, { multiple: true, include_hidden: false}, genre %>                  
+                    <%= sel.check_box :selected_genres, { multiple: true, include_hidden: false }, genre %>                  
                     <%= label_tag(genre) %>
                   </div>
                 <% end %>
@@ -54,7 +53,7 @@
               <div data-filter-dropdown-target="yearContent">
                 <% @formatted_avaliable_years.each do |year| %>
                   <div class="pl-2 py-0.5">
-                    <%= sel.check_box :selected_years, { multiple: true, include_hidden: false}, year %>
+                    <%= sel.check_box :selected_years, { multiple: true, include_hidden: false }, year %>
                     <%= label_tag(year) %>
                   </div>
                 <% end %>
@@ -76,7 +75,7 @@
               <div data-filter-dropdown-target="ratingContent">
                 <% @available_ratings.each do |rating| %>
                   <div class="pl-2 py-0.5">
-                    <%= sel.check_box :selected_ratings, { multiple: true, include_hidden: false}, rating %>
+                    <%= sel.check_box :selected_ratings, { multiple: true, include_hidden: false }, rating %>
                     <%= label_tag(rating) %>
                   </div>
                 <% end %>
@@ -96,7 +95,7 @@
             <!-- the menu -->
             <div class="max-h-32 max-w-62 w-none pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
               <div data-filter-dropdown-target="scoreContent" class="m-4 h-32">
-                <%= sel.range_field :searched_score, id: "slider", in: 0..10, value: 0%>
+                <%= sel.range_field :searched_score, id: "slider", in: 0..10, value: 0 %>
               </div>
             </div>
           </div>

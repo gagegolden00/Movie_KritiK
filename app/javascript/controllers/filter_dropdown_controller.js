@@ -10,7 +10,7 @@ export default class extends Controller {
     this.yearContentTarget.classList.toggle("hidden");
     this.ratingContentTarget.classList.toggle("hidden");
     this.scoreContentTarget.classList.toggle("hidden");
-    
+
   }
 
   toggleGenre() {

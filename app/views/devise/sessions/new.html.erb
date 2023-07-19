@@ -25,18 +25,18 @@
         <% end %>
         <div class="flex items-center justify-between">
           <div class="flex">
-            <%= f.submit "Log in", data: {turbo_frame: "_top", action: 'redirect_to tasks_url'},  class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+            <%= f.submit "Log in", data: { turbo_frame: "_top", action: "redirect_to tasks_url" }, class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
           </div>
         </div>
       <% end %>
 
       <div class="mt-4 text-sm text-center">
-      <%= link_to "Forgot Password?", new_password_path(resource)%>
+      <%= link_to "Forgot Password?", new_password_path(resource) %>
       </div>
     </div>
 
     <div class="mt-10 flex flex-col items-center bg-slate-200 ">
       <p class="flex items-center text-black mt-5">Create an Account Today!</p>
-      <%= link_to "Sign Up", new_user_registration_path, class: " mt-4 ml-4 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"%>
+      <%= link_to "Sign Up", new_user_registration_path, class: " mt-4 ml-4 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
     </div>
   </div>

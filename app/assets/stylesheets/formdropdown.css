@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  width: 50%; /* Adjust the width as needed */
+  width: 50%;
+  /* Adjust the width as needed */
   border: 2px solid blue;
 
 }
@@ -19,7 +20,8 @@
 }
 
 .formdropdown .dropdown-label::after {
-  content: "\25BE"; /* Unicode character for down arrow */
+  content: "\25BE";
+  /* Unicode character for down arrow */
 
 }
 
@@ -28,7 +30,8 @@
   width: 100%;
   top: 100%;
   left: 0;
-  max-height: 300px; /* Adjust the max height as needed */
+  max-height: 300px;
+  /* Adjust the max height as needed */
   overflow-y: auto;
   background-color: #fff;
   z-index: 1;
@@ -41,7 +44,8 @@
 }
 
 .formdropdown .dropdown-content label input[type="checkbox"] {
-  margin-right: 5px; /* Adjust the margin as needed */
+  margin-right: 5px;
+  /* Adjust the margin as needed */
   border: 1px solid #222;
 }
 
