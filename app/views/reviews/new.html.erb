@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <main class="flex flex-col lg:flex-wrap lg:w-4/5">
-    <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:my-4 lg:mr-auto  lg:ml-80 lg:w-3/4">
-      <% if @movie_data.present? %>
-      <h1 class="lg:hidden flex flex-row w-full justify-center mb-4 text-xl font-bold"><%= @movie_data["Title"] %></h1>
-      <img src="<%= @movie_data["Poster"] %>" alt="Movie Poster" class="lg:mr-5  border-2 max-h-4/5 my-auto">
-
-      <div class="flex flex-wrap justify-center mx-1 lg:flex-nowrap lg:flex-col lg:mt-2 lg:mb-4">
-        <div class="w-full text-center mt-4 lg:text-left lg:mr-60 lg:mt-1 lg:w-full ">
-          <h1 class="hidden lg:flex lg:text-3xl"><%= @movie_data["Title"] %></h1>
-          <p class="text-slate-700 lg:mt-1"><%= @movie_data["Year"] %> | <%= @movie_data["Runtime"] %> | <%= @movie_data["Rated"] %> | <%= @movie_data["Genre"] %></p>
-        </div>
-        <div class="w-full mt-1 lg:mt-4 lg:mr-60 lg:w-1/2">
-          <h4 class="font-bold">Director</h4>
-          <p><%= @movie_data["Director"] %></p>
-        </div>
-        <div class="w-full mt-1 lg:mt-4 lg:mr-60 lg:w-1/2">
-          <h4 class="font-bold">Actors</h4>
-          <p><%= @movie_data["Actors"] %></p>
-        </div>  
-        <div class="w-full mt-1 lg:mt-4 lg:mr-60 lg:w-1/2">
-          <h4 class="font-bold">Awards</h4>
-          <p><%= @movie_data["Awards"] %></p>
-        </div>  
-        <div class="w-full mt-1 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60">
-          <h4 class="font-bold sticky top-0 w-full bg-white">Summary</h4>
-          <div>
-          <p><%= @movie_data["Plot"] %>
+  <body>
+    <main class="flex flex-col lg:flex-wrap lg:w-4/5">
+      <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:my-4 lg:mr-auto  lg:ml-80 lg:w-3/4">
+        <% if @movie_data.present? %>
+          <h1 class="lg:hidden flex flex-row w-full justify-center mb-4 text-xl font-bold"><%= @movie_data["Title"] %></h1>
+          <img src="<%= @movie_data["Poster"] %>" alt="Movie Poster" class="lg:mr-5  border-2 max-h-4/5 my-auto">
+          <div class="flex flex-wrap justify-center mx-1 lg:flex-nowrap lg:flex-col lg:mt-2 lg:mb-4">
+            <div class="w-full text-center mt-4 lg:text-left lg:mr-60 lg:mt-1 lg:w-full ">
+              <h1 class="hidden lg:flex lg:text-3xl"><%= @movie_data["Title"] %></h1>
+              <p class="text-slate-700 lg:mt-1"><%= @movie_data["Year"] %> | <%= @movie_data["Runtime"] %> | <%= @movie_data["Rated"] %> | <%= @movie_data["Genre"] %></p>
+            </div>
+            <div class="w-full mt-1 lg:mt-4 lg:mr-60 lg:w-1/2">
+              <h4 class="font-bold">Director</h4>
+              <p><%= @movie_data["Director"] %></p>
+            </div>
+            <div class="w-full mt-1 lg:mt-4 lg:mr-60 lg:w-1/2">
+              <h4 class="font-bold">Actors</h4>
+              <p><%= @movie_data["Actors"] %></p>
+            </div>
+            <div class="w-full mt-1 lg:mt-4 lg:mr-60 lg:w-1/2">
+              <h4 class="font-bold">Awards</h4>
+              <p><%= @movie_data["Awards"] %></p>
+            </div>
+            <div class="w-full mt-1 overflow-y-auto max-h-40 lg:mt-4 lg:mr-60">
+              <h4 class="font-bold sticky top-0 w-full bg-white">Summary</h4>
+              <div>
+                <p><%= @movie_data["Plot"] %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= turbo_frame_tag "error_messages" do %>
+          <% end %>
+          <div class="flex flex-wrap justify-center mx-1 mb-10 lg:mb-10 lg:mt-4 lg:mr-72 lg:ml-80 lg:w-3/4">
+            <%= render partial: "form" %>
           </div>
         </div>
-      </div>
-    </div>
-      <%= turbo_frame_tag "error_messages" do %>
+      <% else %>
+        <p>No movie found.</p>
       <% end %>
-      <div class="flex flex-wrap justify-center mx-1 mb-10 lg:mb-10 lg:mt-4 lg:mr-72 lg:ml-80 lg:w-3/4">
-        <%= render partial: "form" %>
-      </div>
-    </div>
-    <% else %>
-      <p>No movie found.</p>
-    <% end %>
-  </main>
-
-</body>
+    </main>
+  </body>
 </html>

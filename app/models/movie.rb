@@ -6,7 +6,9 @@ class Movie < ApplicationRecord
   # scopes exit
 
   # text title search
-  scope :search_by_title, ->(value) { includes(:review).where("lower(title) LIKE ?", "%#{value&.downcase}%") }
+  scope :search_by_term, ->(value) {
+      includes(:review).where("lower(title) ILIKE :value OR lower(actors) ILIKE :value OR lower(director) ILIKE :value", value: "%#{value&.downcase}%")
+    }
   scope :search_by_rating, ->(value) { where("rating LIKE ?", "%#{value&.upcase}%") }
   scope :search_by_year, ->(value) { where("(year) LIKE ?", "%#{value}%") }
   scope :search_by_genre, ->(value) { joins(:genres).where("(genres.name) LIKE ?", "%#{value}%") }

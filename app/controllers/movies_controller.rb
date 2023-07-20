@@ -1,14 +1,16 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_movie, only: %i[show edit update destroy]
+
   # GET /movies or /movies.json
   def index
     get_available_genres
     get_available_years
     get_available_ratings
+    get_sorting_methods
     @movies = Movie.includes(:review)
     if params
-      @movies = Movie.search_by_title(params[:searched_title]).search_by_genre(params[:searched_genre]).search_by_year(params[:searched_year]).search_by_rating(params[:searched_rating]).search_by_score(params[:searched_score])
+      @movies = Movie.search_by_term(params[:searched_term]).search_by_genre(params[:searched_genre]).search_by_year(params[:searched_year]).search_by_rating(params[:searched_rating]).search_by_score(params[:searched_score])
       if @movies.nil?
         binding.pry
       end
@@ -113,5 +115,9 @@ class MoviesController < ApplicationController
       "TV-G", "TV-PG", "TV-14", "TV-MA",
       "N/A",
     ]
+  end
+
+  def get_sorting_methods
+    @sorting_methods = ["Sort By Title A-Z", "Sort By Title Z-A", "Sort By Year Asc", "Sort By Year Des"]
   end
 end

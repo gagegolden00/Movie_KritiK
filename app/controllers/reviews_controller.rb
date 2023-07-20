@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   def search
     retrieve_movie_list(params[:title])
     @search_performed = !params[:title].nil?
-    @exsisting_movies_with_api_movie_id = Review.joins(:movie).select('reviews.api_movie_id, reviews.movie_id')
+    @exsisting_movies_with_api_movie_id = Review.joins(:movie).select("reviews.api_movie_id, reviews.movie_id")
   end
 
   # GET /reviews or /reviews.json
