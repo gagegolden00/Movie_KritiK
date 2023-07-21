@@ -1,0 +1,7 @@
+  <div id="error_explanation" data-turbo-cache="false" class="mt-10 flex flex-col justify-center items-center">
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li class="text-red-500"><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>

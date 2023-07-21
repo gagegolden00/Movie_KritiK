@@ -6,21 +6,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
     <main>
-
-    <!-- navigation -->
-    <% if current_user %>
-      <%= render "devise/shared/nav" %>
-    <% end %>
-
-
-    <!-- flash messages -->
+      <!-- navigation -->
+      <% if current_user %>
+        <%= render "devise/shared/nav" %>
+      <% end %>
+      <!-- flash messages -->
       <% if flash[:alert] %>
         <div class="alert alert-danger">
           <%= flash[:alert] %>
@@ -31,7 +26,6 @@
           <%= flash[:notice] %>
         </div>
       <% end %>
-
       <%= yield %>
     </main>
   </body>

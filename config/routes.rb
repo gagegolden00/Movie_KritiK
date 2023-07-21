@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: {
-            passwords: "users/passwords",
-            registrations: "users/registrations",
-            sessions: "users/sessions",
-          }
+                       passwords: "users/passwords",
+                       registrations: "users/registrations",
+                       sessions: "users/sessions",
+                     }
   devise_scope :user do
     root to: "pages#home"
     get "/account", to: "pages#account", as: :account

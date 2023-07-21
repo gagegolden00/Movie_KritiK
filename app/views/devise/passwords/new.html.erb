@@ -1,6 +1,5 @@
 <div class="flex h-screen flex-col justify-center m-auto items-center border-2 border-blue-400">
   <h2 class="font-bold text-xl">Password Recovery</h2>
-
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <div class="">
@@ -8,15 +7,12 @@
         <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full mb-4 px-4 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
       </div>
-
       <div>
         <%= f.submit "Submit", class: "w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" %>
       </div>
-
       <div class="flex justify-center mt-10 ">
         <%= link_to "Sign In", root_path, class: "text-purple-700" %>
       </div>
     </div>
   <% end %>
 </div>
-

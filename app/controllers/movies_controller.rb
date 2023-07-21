@@ -7,16 +7,29 @@ class MoviesController < ApplicationController
     get_available_genres
     get_available_years
     get_available_ratings
-    get_sorting_methods
-    @movies = Movie.includes(:review)
-    if params
-      @movies = Movie.search_by_term(params[:searched_term]).search_by_genre(params[:searched_genre]).search_by_year(params[:searched_year]).search_by_rating(params[:searched_rating]).search_by_score(params[:searched_score])
-      if @movies.nil?
-        binding.pry
-      end
+
+    # if the user gives a completely empty search
+    if params.present? &&  params[:searched_terms] == "" && params[:searched_scores] == "0" && params.to_unsafe_h.count == 5
+      @movies = Movie.includes(:review).all
+      
+    # filtering the movies based on the search
+    elsif params && params[:commit]&.[]("Search").present? 
+      # @movies = Movie.search_by_term(params[:searched_terms])
+      # @movies = Movie.search_by_genre(params[:searched_genres])
+      # @movies = Movie.search_by_year(params[:searched_years])
+      # @movies = Movie.search_by_rating(params[:searched_ratings])
+      # @movies = Movie.search_by_score(params[:searched_scores])
+      @movies = Movie.search_by_term(params[:searched_terms])
+      .search_by_genre(params[:searched_genres])
+        .search_by_year(params[:searched_years])
+        .search_by_rating(params[:searched_ratings])
+        .search_by_score(params[:searched_scores])
     else
+      # for the landing to display all movies 
       @movies = Movie.includes(:review).all
     end
+
+      
   end
 
   # GET /movies/1 or /movies/1.json
@@ -115,9 +128,5 @@ class MoviesController < ApplicationController
       "TV-G", "TV-PG", "TV-14", "TV-MA",
       "N/A",
     ]
-  end
-
-  def get_sorting_methods
-    @sorting_methods = ["Sort By Title A-Z", "Sort By Title Z-A", "Sort By Year Asc", "Sort By Year Des"]
   end
 end

@@ -3,14 +3,34 @@ class Movie < ApplicationRecord
   has_many :movie_genres, dependent: :destroy
   has_many :genres, :through => :movie_genres
 
-  # scopes exit
-
-  # text title search
-  scope :search_by_term, ->(value) {
-      includes(:review).where("lower(title) ILIKE :value OR lower(actors) ILIKE :value OR lower(director) ILIKE :value", value: "%#{value&.downcase}%")
-    }
-  scope :search_by_rating, ->(value) { where("rating LIKE ?", "%#{value&.upcase}%") }
-  scope :search_by_year, ->(value) { where("(year) LIKE ?", "%#{value}%") }
-  scope :search_by_genre, ->(value) { joins(:genres).where("(genres.name) LIKE ?", "%#{value}%") }
-  scope :search_by_score, ->(value) { joins(:review).where("reviews.score >= ?", value.to_i) }
+  scope :search_by_term, ->(value) do
+          includes(:review)
+            .where("lower(title) ILIKE :value OR lower(actors) ILIKE :value OR lower(director) ILIKE :value", value: "%#{value&.downcase}%")
+            .distinct
+            .order(title: :asc)
+        end
+  scope :search_by_rating, ->(value) do
+          includes(:review)
+            .where(rating: value)
+            .distinct
+            .order(rating: :asc, title: :asc)
+        end
+  scope :search_by_genre, ->(value) do
+          joins(:genres)
+            .where("genres.name ILIKE ANY (array[?])", value)
+            .includes(:review)
+            .distinct
+            .order(title: :asc)
+        end
+  scope :search_by_year, ->(value) do
+          where(year: value)
+            .includes(:review)
+            .distinct.order("year DESC")
+        end
+  scope :search_by_score, ->(value) do
+          joins(:review)
+            .where("score >= ?", value.to_i)
+            .includes(:review)
+            .order("score DESC")
+        end
 end
