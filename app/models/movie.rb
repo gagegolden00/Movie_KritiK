@@ -6,7 +6,6 @@ class Movie < ApplicationRecord
   scope :search_by_term, ->(value) do
           includes(:review)
             .where("lower(title) ILIKE :value OR lower(actors) ILIKE :value OR lower(director) ILIKE :value", value: "%#{value&.downcase}%")
-            .distinct
             .order(title: :asc)
         end
   scope :search_by_rating, ->(value) do
@@ -15,9 +14,9 @@ class Movie < ApplicationRecord
             .distinct
             .order(rating: :asc, title: :asc)
         end
-  scope :search_by_genre, ->(value) do
+  scope :search_by_genre, ->(genres) do
           joins(:genres)
-            .where("genres.name ILIKE ANY (array[?])", value)
+            .where("genres.name IN (?)", genres)
             .includes(:review)
             .distinct
             .order(title: :asc)
@@ -25,7 +24,7 @@ class Movie < ApplicationRecord
   scope :search_by_year, ->(value) do
           where(year: value)
             .includes(:review)
-            .distinct.order("year DESC")
+            .order("year ASC")
         end
   scope :search_by_score, ->(value) do
           joins(:review)
