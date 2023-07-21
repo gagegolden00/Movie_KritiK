@@ -46,4 +46,7 @@ class Movie < ApplicationRecord
               .order("score DESC")
           end
         end
+
+
+
 end

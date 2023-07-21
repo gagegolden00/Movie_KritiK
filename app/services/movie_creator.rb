@@ -1,8 +1,14 @@
 class MovieCreator
   def self.create_movie(movie_data_hash, genres)
+
+    start_year_param = movie_data_hash["Year"][0..3]
+    end_year_param = movie_data_hash["Year"].length == 9 ? movie_data_hash["Year"][5..8] : nil
+
+
     movie = Movie.new(
       title: movie_data_hash["Title"],
-      year: movie_data_hash["Year"],
+      start_year: start_year_param,
+      end_year: end_year_param,
       rating: movie_data_hash["Rated"],
       runtime: movie_data_hash["Runtime"],
       director: movie_data_hash["Director"],
