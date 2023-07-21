@@ -8,70 +8,15 @@ class MoviesController < ApplicationController
     get_available_years
     get_available_ratings
 
-    # if the user gives a completely empty search
+    # If the user gives a completely empty search
     if params.present? && params[:searched_terms] == "" && params[:searched_scores] == "0" && params.to_unsafe_h.count == 5
       @movies = Movie.includes(:review).all.order(title: :asc)
-
-      # filtering the movies based on the search
+    # filtering the movies based on the search
     elsif params && params[:commit]&.[]("Search").present?
-      # @movies = Movie.search_by_term(params[:searched_terms])
-      # @movies = Movie.search_by_genre(params[:searched_genres])
-      # @movies = Movie.search_by_year(params[:searched_years])
-      # @movies = Movie.search_by_rating(params[:searched_ratings])
-      # @movies = Movie.search_by_score(params[:searched_scores])
-      #@movies = Movie.search_by_term(params[:searched_terms])
-      #@movies.each {|movie| puts movie.title}
-      #binding.pry
-      #@movies = @movies.search_by_genre(params[:searched_genres])
-      #@movies.each {|movie| puts movie.title}
-      #binding.pry
-      #@movies = @movies.search_by_year(params[:searched_years])
-      #@movies.each {|movie| puts movie.title}
-      #binding.pry
-      #@movies = @movies.search_by_rating(params[:searched_ratings])
-      #@movies.each {|movie| puts movie.title}
-      #binding.pry
-      #@movies = @movies.search_by_score(params[:searched_scores])
-      #@movies.each {|movie| puts movie.title}
-      #binding.pry
-
-      @movies = Movie.all
-
-      # Search by term if 'searched_terms' param is present
-      if params[:searched_terms].present?
-        @movies = @movies.search_by_term(params[:searched_terms])
-        #binding.pry
-      end
-
-      # Search by genre if 'searched_genres' param is present
-      if params[:searched_genres].present?
-        @movies = @movies.search_by_genre(params[:searched_genres])
-        #binding.pry
-      end
-
-      # Search by year if 'searched_years' param is present
-      if params[:searched_years].present?
-        @movies = @movies.search_by_year(params[:searched_years])
-        #binding.pry
-      end
-
-      # Search by rating if 'searched_ratings' param is present
-      if params[:searched_ratings].present?
-        @movies = @movies.search_by_rating(params[:searched_ratings])
-        #binding.pry
-      end
-
-      # Search by score if 'searched_scores' param is present
-      if params[:searched_scores].present?
-        @movies = @movies.search_by_score(params[:searched_scores])
-        #binding.pry
-      end
-
-      # At this point, the @movies variable should contain the final filtered result based on the params.
-      # You can continue with any further processing or display the movies as needed.
-      @movies.each { |movie| puts movie.title }
+      filtered_search = FilterSearch.new(params[:searched_terms], params[:searched_genres], params[:searched_years], params[:searched_ratings], params[:searched_scores])
+      @movies = filtered_search.execute_search
+    # When no search is present
     else
-      # for the landing to display all movies
       @movies = Movie.includes(:review).all.order(title: :asc)
     end
   end

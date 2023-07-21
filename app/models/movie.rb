@@ -4,32 +4,46 @@ class Movie < ApplicationRecord
   has_many :genres, :through => :movie_genres
 
   scope :search_by_term, ->(value) do
-          includes(:review)
-            .where("lower(title) ILIKE :value OR lower(actors) ILIKE :value OR lower(director) ILIKE :value", value: "%#{value&.downcase}%")
-            .order(title: :asc)
+          if value.present?
+            includes(:review)
+              .where("lower(title) ILIKE :value OR lower(actors) ILIKE :value OR lower(director) ILIKE :value", value: "%#{value&.downcase}%")
+              .order(title: :asc)
+          end
         end
+
   scope :search_by_rating, ->(value) do
-          includes(:review)
-            .where(rating: value)
-            .distinct
-            .order(rating: :asc, title: :asc)
+          if value.present?
+            includes(:review)
+              .where(rating: value)
+              .distinct
+              .order(rating: :asc, title: :asc)
+          end
         end
-  scope :search_by_genre, ->(genres) do
-          joins(:genres)
-            .where("genres.name IN (?)", genres)
-            .includes(:review)
-            .distinct
-            .order(title: :asc)
+
+  scope :search_by_genre, ->(value) do
+          if value.present?
+            joins(:genres)
+              .where("genres.name IN (?)", value)
+              .includes(:review)
+              .distinct
+              .order(title: :asc)
+          end
         end
-  scope :search_by_year, ->(value) do
-          where(year: value)
-            .includes(:review)
-            .order("year ASC")
+
+  scope :search_by_year, ->(years) do
+          if years.present?
+            where("year ILIKE ANY (array[?])", "#{years}%")
+              .includes(:review)
+              .order("year ASC")
+          end
         end
+
   scope :search_by_score, ->(value) do
-          joins(:review)
-            .where("score >= ?", value.to_i)
-            .includes(:review)
-            .order("score DESC")
+          if value.present?
+            joins(:review)
+              .where("score >= ?", value.to_i)
+              .includes(:review)
+              .order("score DESC")
+          end
         end
 end
