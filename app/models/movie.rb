@@ -30,11 +30,11 @@ class Movie < ApplicationRecord
           end
         end
 
-  scope :search_by_year, ->(value) do
-          if value.present?
-            where("year ILIKE ANY (array[?])", "#{value}%")
+  scope :search_by_year, ->(values) do
+          if values.present?
+            where(start_year: values)
               .includes(:review)
-              .order("year ASC")
+              .order("start_year ASC")
           end
         end
 
@@ -46,7 +46,4 @@ class Movie < ApplicationRecord
               .order("score DESC")
           end
         end
-
-
-
 end

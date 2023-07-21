@@ -25,7 +25,12 @@
                   <%= @movie.title %>
                 </h1>
                 <p class="text-slate-700 lg:mt-1 lg:flex lg:justify-start">
-                  <%= @movie.year %> | <%= @movie.runtime %> | <%= @movie.rating %> | <%= structure_movie_genres(@movie) %>
+                
+                  <%= @movie.start_year %> 
+                    <% if @movie.end_year.present?%>
+                      - <%= @movie.end_year%> 
+                    <% end %>
+                  | <%= @movie.runtime %> | <%= @movie.rating %> | <%= structure_movie_genres(@movie) %>
                 </p>
               </div>
               <div class="w-full mt-2 lg:mt-4 lg:mr-60 lg:w-1/2">

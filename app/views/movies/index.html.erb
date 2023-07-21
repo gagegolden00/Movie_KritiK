@@ -49,7 +49,7 @@
             <!-- the menu -->
             <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
               <div data-filter-dropdown-target="yearContent">
-                <% @formatted_avaliable_years.each do |year| %>
+                <% @movie_years.each do |year| %>
                   <div class="pl-2 py-0.5">
                     <%= sel.check_box :searched_years, { multiple: true, include_hidden: false }, year %>
                     <span class=""><%= year %></span>
@@ -154,7 +154,7 @@
             <!-- the year menu -->
             <div data-filter-dropdown-target="yearContent">
               <div class="max-h-32 flex-col overflow-y-auto border-4 rounded">
-                <% @formatted_avaliable_years.each do |year| %>
+                <% @movie_years.each do |year| %>
                   <div class="pl-2">
                     <%= sel.check_box :searched_years, { multiple: true, include_hidden: false }, year %>
                     <span class=""><%= year %></span>

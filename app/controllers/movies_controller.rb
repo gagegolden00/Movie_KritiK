@@ -13,7 +13,8 @@ class MoviesController < ApplicationController
       @movies = Movie.includes(:review).all.order(title: :asc)
     # filtering the movies based on the search
     elsif params && params[:commit]&.[]("Search").present?
-      filtered_search = FilterSearch.new(params[:searched_terms], params[:searched_genres], params[:searched_years], params[:searched_ratings], params[:searched_scores])
+      searched_years = params[:searched_years].map(&:to_i) if params[:searched_years].present?      
+      filtered_search = FilterSearch.new(params[:searched_terms], params[:searched_genres], searched_years, params[:searched_ratings], params[:searched_scores])
       @movies = filtered_search.execute_search
     # When no search is present
     else
@@ -97,15 +98,7 @@ class MoviesController < ApplicationController
 
   # for finding & formatting years
   def get_available_years
-    @movie_years = Movie.pluck(:year).sort
-    @formatted_avaliable_years = []
-    @movie_years.map do |year|
-      truncated_year = year.slice(0, 4)
-      @formatted_avaliable_years << truncated_year
-      @earliest_year = @formatted_avaliable_years.first
-      @latest_year = @formatted_avaliable_years.last
-    end
-    @formatted_avaliable_years.uniq!
+    @movie_years = Movie.pluck(:start_year).uniq.sort
   end
 
   # for finding ratings
