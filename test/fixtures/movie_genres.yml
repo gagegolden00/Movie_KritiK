@@ -3,9 +3,56 @@
 # This model initially had no columns defined. If you add columns to the
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+ 
+
+avatar_genres:
+  movie_id: 1
+  genre_id: 1
+
+avatar_genres_2:
+  movie_id: 1
+  genre_id: 2
+
+avatar_genres_3:
+  movie_id: 1
+  genre_id: 3
+
+black_clover_genres:
+  movie_id: 2
+  genre_id: 4
+
+black_clover_genres_2:
+  movie_id: 2
+  genre_id: 1
+
+black_clover_genres_3:
+  movie_id: 2
+  genre_id: 2
+
+constantine_genres:
+  movie_id: 3
+  genre_id: 1
+
+constantine_genres_2:
+  movie_id: 3
+  genre_id: 3
+
+constantine_genres_3:
+  movie_id: 3
+  genre_id: 5
+
+indiana_jones_genres:
+  movie_id: 4
+  genre_id: 1
+
+indiana_jones_genres_2:
+  movie_id: 4
+  genre_id: 2
+
+shameless_genres:
+  movie_id: 5
+  genre_id: 7
+
+shameless_genres_2:
+  movie_id: 5
+  genre_id: 6

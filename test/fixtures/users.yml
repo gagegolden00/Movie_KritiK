@@ -4,8 +4,10 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+
+# these are commented out because of this error -- ERROR:  duplicate key value violates unique constraint "index_users_on_email"
+#one: {}
 # column: value
 #
-two: {}
+#two: {}
 # column: value

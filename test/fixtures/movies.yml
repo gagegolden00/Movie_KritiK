@@ -1,9 +1,45 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
+avatar:
+  id: 1
+  title: "Avatar"
+  rating: "PG-13"
+  director: "James Cameron"
+  actors: "Sam Worthington, Zoe Saldana, Sigourney Weaver"
+  start_year: 2022
+
+black_clover:
+  id: 2
+  title: "Black Clover"
+  rating: "TV-14"
+  director: "N/A"
+  actors: "Dallas Reid, Jill Harris, Cris George"
+  start_year: 2017
+
+constantine:
+  id: 3
+  title: "Constantine"
+  rating: "R"
+  director: "Francis Lawrence"
+  actors: "Keanu Reeves, Rachel Weisz, Djimon Hounsou"
+  start_year: 2005
+
+indiana_jones:
+  id: 4
+  title: "Indiana Jones"
+  rating: "PG"
+  director: "Steven Spielberg"
+  actors: "Harrison Ford, Karen Allen, Paul Freeman"
+  start_year: 1981
+
+shameless:
+  id: 5
+  title: "Shameless"
+  rating: "TV-MA"
+  director: "Some Guy"
+  actors: "Emmy Rossum, William H. Macy, Ethan Cutkosky"
+  start_year: 2011
+
+
   
 
-two:
-  title: MyString
-  
