@@ -1,6 +1,9 @@
 <html>
   <body>
     <header>
+        <div class="flex justify-center">
+      <%= render "devise/shared/user_error_messages", resource: resource %>
+    </div>
     </header>
     <main  class="flex flex-col">
       <h2 class="flex justify-center my-10 text-3xl font-bold" >Change Password</h2>
@@ -27,7 +30,7 @@
             <%= f.password_field :current_password, autocomplete: "current-password", class: "rounded lg:w-full" %>
           </div>
           <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center mt-10 lg:w-3/5">
-            <%= f.submit "Update", class: "flex border-2 border-green-400 bg-green-200 items-center w-32 h-10 rounded lg:mb-0 mb-6 " %>
+            <%= f.submit "Update", class: "flex border-2 border-green-400 bg-green-50 items-center w-32 h-10 rounded lg:mb-0 mb-6 hover:bg-blue-100 hover:cursor-pointer" %>
             <%= link_to "Cancel", account_path, class: "flex justify-center items-center rounded h-10 w-32 border-2 border-red-300 bg-red-200 hover:cursor-pointer" %>
           </div>
         </div>

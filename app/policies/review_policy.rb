@@ -5,7 +5,9 @@ class ReviewPolicy < ApplicationPolicy
     @user = user
     @review = review
   end
-
+  def search?
+    only_admin
+  end
   def index?
     true
   end
@@ -15,7 +17,6 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def create?
-    binding.pry
     only_admin
   end
 
