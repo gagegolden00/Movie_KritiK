@@ -7,10 +7,10 @@
           <!-- Text Search -->
           <div class="flex flex-row justify-between w-full h-10">
             <%= sel.text_field :searched_terms, placeholder: "Search movies", class: "w-full rounded-md" %>
-            <%= sel.submit "Search", class: "flex bg-blue-400 lg:w-32 h-9 rounded-md lg:p-1.5 lg:ml-4 hover:cursor-pointer" %>
-            <%= link_to "Reset search", "#", class: "flex w-30 h-9 bg-white border-2 border-blue-400 text-blue-400 rounded-md lg:py-1 lg:px-4 lg:ml-5 whitespace-nowrap", "data-action" => "click->clearform#clearForm" %>
+            <%= sel.submit "Search", class: "flex ml-4 justify-center items-center text-center hover:cursor-pointer border-2 border-blue-500 rounded w-48 bg-blue-50 h-10 whitespace-nowrap hover:bg-blue-100" %>
+            <%= link_to "Reset search", "#", class: "flex ml-4 justify-center p-4 items-center text-center hover:cursor-pointer border-2 border-blue-500 rounded w-48 bg-blue-50 h-10 whitespace-nowrap hover:bg-blue-100", "data-action" => "click->clearform#clearForm" %>
             <% if current_user.present? && current_user.admin? %>
-              <%= link_to "New Review", reviews_search_reviews_path, class: "flex w-30 h-9 lg:ml-5 bg-green-400 rounded-md lg:py-1.5 lg:px-4 whitespace-nowrap" %>
+              <%= link_to "New Review", reviews_search_reviews_path, class: "flex ml-4 p-4 justify-center items-center text-center hover:cursor-pointer border-2 border-green-500 rounded w-48 bg-green-50 h-10 whitespace-nowrap hover:bg-green-100" %>
             <% end %>
           </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="max-h-32 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
               <div data-filter-dropdown-target="genreContent">
                 <% @avaliable_genres.each do |genre| %>
-                  <div class="pl-2 pr-10 flex items-center mb-1 ">
+                  <div class="pl-2 pr-10 flex items-center mb-1 hover:bg-slate-100">
                     <%= sel.check_box :searched_genres, { multiple: true, include_hidden: false }, genre %>
                     <span class="px-1"><%= genre %></span>
                   </div>
@@ -50,7 +50,7 @@
             <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
               <div data-filter-dropdown-target="yearContent">
                 <% @movie_years.each do |year| %>
-                  <div class="pl-2 py-0.5">
+                  <div class="pl-2 py-0.5 hover:bg-slate-100">
                     <%= sel.check_box :searched_years, { multiple: true, include_hidden: false }, year %>
                     <span class=""><%= year %></span>
                   </div>
@@ -71,7 +71,7 @@
             <div class="max-h-32 max-w-40 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
               <div data-filter-dropdown-target="ratingContent">
                 <% @available_ratings.each do |rating| %>
-                  <div class="pl-2 py-0.5">
+                  <div class="pl-2 py-0.5 hover:bg-slate-100">
                     <%= sel.check_box :searched_ratings, { multiple: true, include_hidden: false }, rating %>
                     <span class=""><%= rating %></span>
                   </div>
@@ -104,10 +104,12 @@
     <%= form_with(model: @movie, method: :get, id: "search-form", class: " mt-4 w-full ") do |sel| %>
       <div class="flex" data-controller="clearform">
         <h1 class="font-bold mt-3.5">Movie Reviews</h1>
-        <%= link_to "Reset search", "#", class: "mt-2.5 flex text-center justify-center items-center ml-auto border-2 border-blue-500 rounded text-center w-32 bg-blue-50 h-8 whitespace-nowrap" , "data-action" => "click->clearform#clearForm" %>
+        <div class="flex flex-row justify-end ml-auto">
+        <%= link_to "Reset search", "#", class: "mt-2.5 flex text-center justify-center ml-auto items-center ml-auto border-2 border-blue-500 rounded text-center w-32 bg-blue-50 h-8 whitespace-nowrap hover:cursor-pointer hover:bg-blue-100" , "data-action" => "click->clearform#clearForm" %>
         <% if current_user.present? && current_user.admin? %>
-          <%= link_to "New Review", reviews_search_reviews_path, class: "mt-2.5 flex text-center justify-center items-center ml-auto border-2 border-blue-500 rounded text-center w-32 bg-blue-50 h-8 whitespace-nowrap" %>
+          <%= link_to "New Review", reviews_search_reviews_path, class: "mt-2.5 ml-4 flex text-center justify-center items-center border-2 border-green-500 rounded text-center w-32 bg-green-50 h-8 whitespace-nowrap hover:bg-green-100" %>
         <% end %>
+        </div>
       </div>
       <div class="mt-4">
         <div class="flex items-center justify-center">
@@ -122,19 +124,19 @@
           <!-- Selection Buttons -->
           <div class="h-1/2 w-full flex flex-row justify-between mb-1">
             <!-- genre selection button -->
-            <button data-action="click->filter-dropdown#toggleGenre" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded">              
+            <button data-action="click->filter-dropdown#toggleGenre" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded hover:bg-blue-100">              
               <span class="text-center">Genre</span>
             </button>
             <!-- year selection button -->
-            <button data-action="click->filter-dropdown#toggleYear" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded">              
+            <button data-action="click->filter-dropdown#toggleYear" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded hover:bg-blue-100">              
               <span class="text-center">Year</span>
             </button>
             <!-- Rating Selection button -->
-            <button data-action="click->filter-dropdown#toggleRating" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded">              
+            <button data-action="click->filter-dropdown#toggleRating" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded hover:bg-blue-100">              
               <span class="text-center">Rating</span>
             </button>
             <!-- Score Selection button -->
-            <button data-action="click->filter-dropdown#toggleScore" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded">              
+            <button data-action="click->filter-dropdown#toggleScore" type="button" class="border-2 border-blue-400 bg-blue-50 w-20 h-8 rounded hover:bg-blue-100">              
               <span class="text-center">Score</span>
             </button>
           </div>
@@ -144,7 +146,7 @@
             <div data-filter-dropdown-target="genreContent">
               <div class="max-h-32 flex-col overflow-y-auto border-4 rounded">
                 <% @avaliable_genres.each do |genre| %>
-                  <div class="pl-2">
+                  <div class="pl-2 hover:bg-slate-100">
                     <%= sel.check_box :searched_genres, { multiple: true, include_hidden: false }, genre %>
                     <span class=""><%= genre %></span>
                   </div>
@@ -155,7 +157,7 @@
             <div data-filter-dropdown-target="yearContent">
               <div class="max-h-32 flex-col overflow-y-auto border-4 rounded">
                 <% @movie_years.each do |year| %>
-                  <div class="pl-2">
+                  <div class="pl-2 hover:bg-slate-100">
                     <%= sel.check_box :searched_years, { multiple: true, include_hidden: false }, year %>
                     <span class=""><%= year %></span>
                   </div>
@@ -166,7 +168,7 @@
             <div data-filter-dropdown-target="ratingContent" class="">
               <div class="max-h-32 flex-col overflow-y-auto border-4 rounded">
                 <% @available_ratings.each do |rating| %>
-                  <div class="pl-2">
+                  <div class="pl-2 hover:bg-slate-100">
                     <%= sel.check_box :searched_ratings, { multiple: true, include_hidden: false }, rating %>
                     <span class=""><%= rating %></span>
                   </div>
@@ -176,7 +178,7 @@
             <!-- the score menu -->
             <div data-filter-dropdown-target="scoreContent" class="flex justify-center items-center h-32 border-4 rounded">
               <div class="max-h-32 flex-col">
-                <%= sel.range_field :searched_scores, id: "slider", in: 0..10, value: 0, class: "w-48 mb-8" %> <!-- Increase the width, e.g., w-56 or w-64 -->
+                <%= sel.range_field :searched_scores, id: "slider", in: 0..10, value: 0, class: "lg:w-48 w-80 mb-8" %> <!-- Increase the width, e.g., w-56 or w-64 -->
               </div>
             </div>
           </div>
@@ -195,11 +197,11 @@
               </div>
             <% end %>
           </div>
-          <div class="flex flex-col items-center w-3/4 bottom-0">
-            <h2 class="text-center mb-2 w-4/5"><%= movie.title %></h2>
+          <div class="flex flex-col mt-2 items-center w-3/4 bottom-0">
+            <h2 class="text-center w-4/5"><%= movie.title %></h2>
             <p><%= movie.review.score if movie.present? %>/10</p>
             <% if current_user.admin? %>
-              <div class="flex flex-col justify-between items-center lg:flex-row mt-4 w-full">
+              <div class="flex flex-col justify-between items-center lg:flex-row mt-1 lg:mt-4 w-full">
                 <%= link_to "Edit", movie_path(movie), class: "flex justify-center items-center border-2 border-green-300 w-28 h-7 lg:h-9 mt-2 lg:m-0 text-green-600 bg-green-50 hover:bg-green-100 rounded" %>
                 <%= link_to "Delete", movie_path(movie), data: { turbo_frame: "delete_modal" }, class: "text-center border-2 border-red-300 text-red-600 bg-red-50 hover:bg-red-100 w-28 h-7 mt-2 lg:h-9 lg:mt-0 lg:m-0 flex items-center justify-center rounded" %>
               </div>

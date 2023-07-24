@@ -4,9 +4,9 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def search
-    @review = Review.new
-    authorize @review
-    retrieve_movie_list(params[:title]) 
+
+    #authorize @review
+    retrieve_movie_list(params[:title])
     @search_performed = !params[:title].nil?
     @exsisting_movies_with_api_movie_id = Review.joins(:movie).select("reviews.api_movie_id, reviews.movie_id")
   end
@@ -63,7 +63,6 @@ class ReviewsController < ApplicationController
   # GET /reviews/1/edit
   def edit
     @movie = @review.movie
-    
   end
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
@@ -110,8 +109,8 @@ class ReviewsController < ApplicationController
 
   def retrieve_selected_movie_details(api_movie_id)
     @api_key = "6b86fd48"
-    api_request = URI("http://www.omdbapi.com/?apikey=#{@api_key}&i=#{CGI.escape(api_movie_id)}") if api_request.present?
-    response = Net::HTTP.get(api_request) if api_request.present?
-    JSON.parse(response) if response.present?
+    api_request = URI("http://www.omdbapi.com/?apikey=#{@api_key}&i=#{CGI.escape(api_movie_id)}") if api_movie_id.present?
+    response = Net::HTTP.get(api_request)
+    JSON.parse(response)
   end
 end

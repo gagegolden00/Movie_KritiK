@@ -3,7 +3,7 @@
   <body>
     <main class="flex flex-col p-2">
       <div class="">
-        <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:w-3/4 container mx-auto p-2 border-4 border-double border-gray-300">
+        <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:w-3/4 rounded container mx-auto p-2 border-4 border-double border-gray-300">
           <% if @movie.present? %>
             <h1 class="lg:hidden mt-2 flex flex-row w-full justify-center text-xl font-bold mb-4">
               <%= @movie.title %>
@@ -14,7 +14,7 @@
                 <h1 class="hidden lg:flex lg:text-3xl font-bold">
                   <%= @movie.title %>
                 </h1>
-                <p class="text-slate-700 lg:mt-4 lg:flex lg:justify-start font-bold">
+                <p class="text-slate-700 lg:mt-6 lg:flex lg:justify-start font-bold">
                   <%= @movie.start_year %>
                   <% if @movie.end_year.present?%>
                     - <%= @movie.end_year%>
@@ -49,7 +49,7 @@
       <turbo-frame id="edit_review_form" class="my-8 w-full">
         <div class="mx-auto lg:w-3/4">
           <% if current_user.admin? %>
-            <div class="flex justify-between w-full border-4 border-double mb-8 border-gray-300 bg-gray-100 h-20">
+            <div class="flex justify-between w-full rounded border-4 border-double mb-8 border-gray-300 bg-gray-100 h-20">
               <label class="text-left text-xl my-auto ml-2">Reviewer Options</label>
               <div class="flex my-auto">
                 <%= link_to "Edit", edit_review_path(@movie.review.id), class: "text-center border-2 bg-green-50 border-green-500 text-green-700 hover:bg-green-100 rounded py-1 px-4 m-2 h-9 w-20 " %>
@@ -59,9 +59,9 @@
           <% end %>
           <div class="lg:mx-auto lg:py-4" id="edit_review_div">
             <label class="text-xl px-2 font-bold">Critic Review</label>
-            <p class="mt-4 p-2"><%= @movie.review.content %></p>
+            <p class="my-4 p-2"><%= @movie.review.content %></p>
           </div>
-          <div class="flex flex-row text-align-center lg:p-4 border-4 border-double border-gray-300 bg-gray-100 h-20">
+          <div class="flex flex-row text-align-center rounded lg:p-4 border-4 border-double border-gray-300 bg-gray-100 h-20">
             <h1 class="text-4xl mr-auto my-auto">Critic Score</h1>
             <p class="w-1/4 text-3xl text-right my-auto"><%= @movie.review.score %>/10</p>
           </div>

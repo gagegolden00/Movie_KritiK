@@ -1,12 +1,14 @@
 nav {
   display: flex;
   align-items: center;
+  
 }
 
 .dropdown-label {
   display: inline-block;
   cursor: pointer;
   padding: 10px;
+  
 }
 
 .dropdown-content {

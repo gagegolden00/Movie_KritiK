@@ -2,7 +2,7 @@
 <html>
   <body>
     <main class="flex flex-col lg:flex-wrap">
-      <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:w-3/4 lg:mx-auto border-4 border-double">
+      <div class="flex flex-wrap mt-5 lg:flex justify-center lg:flex-nowrap lg:w-3/4 lg:mx-auto border-4 rounded border-double p-2">
         <% if @movie_data.present? %>
           <h1 class="lg:hidden flex flex-row w-full justify-center mb-4 text-xl font-bold"><%= @movie_data["Title"] %></h1>
           <img src="<%= @movie_data["Poster"] %>" alt="Movie Poster" class="lg:mr-5  border-2 max-h-4/5 my-auto">

@@ -1,29 +1,29 @@
-<nav class="py-2  lg:text-black lg:h-20 lg:flex  lg:items-center border-4 border-double border-slate-300 p-2">
-  <%= link_to root_path, class: "mr-auto ml-4 lg:ml-14" do %>
+<nav class="py-2  lg:text-black lg:h-20 lg:flex  lg:items-center rounded border-4 border-double border-slate-300 p-2">
+  <%= link_to root_path, class: "mr-auto ml-4 lg:ml-12" do %>
     <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
   <!-- if user logged in show username -->
   <% if user_signed_in? %>
-    <p class="lg:ml-8 md:mr-36 lg:mr-0 hidden lg:flex hover:text-green-600"><%= link_to "Signed In as #{current_user.email}", account_path %></p>
+    <p class="lg:ml-8 md:mr-36 lg:mr-0 hidden lg:flex hover:text-blue-600"><%= link_to "Signed In as #{current_user.email}", account_path %></p>
     <%= turbo_frame_tag :delete_modal %>
   <% end %>
   <div class="hidden lg:flex lg:ml-auto">
     <div class="flex items-center">
-      <%= link_to "Movie reviews", movies_path, class: "lg:mr-10 hover:text-green-600" %>
+      <%= link_to "Movie reviews", movies_path, class: "lg:mr-10 hover:text-blue-600" %>
       <% if current_user.present? && current_user.admin? %>
-        <%= link_to "New Review", reviews_search_reviews_path, class: "lg:mr-10 hover:text-green-600" %>
+        <%= link_to "New Review", reviews_search_reviews_path, class: "lg:mr-10 hover:text-blue-600" %>
       <% end %>
     </div>
     <div class="inline-block">
       <input class="hidden" />
       <label class="dropdown-label">
-        <button class="mr-12 hover:text-green-600">
+        <button class="mr-12 hover:text-blue-600">
           Profile
         </button>
       </label>
-      <div class="dropdown-content">
-        <%= link_to "Account", account_path, class: "text-black hover:text-green-600 cursor-hover" %>
-        <%= link_to "Logout", destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-green-600 cursor-hover" %>
+      <div class="dropdown-content mr-20">
+        <%= link_to "Account", account_path, class: "text-black hover:text-blue-600 cursor-hover" %>
+        <%= link_to "Logout", destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-blue-600 cursor-hover" %>
       </div>
     </div>
   </div>
