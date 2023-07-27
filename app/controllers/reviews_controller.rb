@@ -4,10 +4,10 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def search
-
-    #authorize @review
-    retrieve_movie_list(params[:title])
-    @search_performed = !params[:title].nil?
+    @review = Review.new
+    authorize @review
+    retrieve_movie_list(params[:review][:title]) if params[:review][:title].present?
+    @search_performed = !params[:review][:title].nil?
     @exsisting_movies_with_api_movie_id = Review.joins(:movie).select("reviews.api_movie_id, reviews.movie_id")
   end
 
@@ -104,7 +104,7 @@ class ReviewsController < ApplicationController
   end
 
   def retrieve_movie_list(title)
-    @movies = self.retrieve_movies(params[:title]) if params[:title].present?
+    @movies = self.retrieve_movies(params[:review][:title]) if params[:review][:title].present?
   end
 
   def retrieve_selected_movie_details(api_movie_id)

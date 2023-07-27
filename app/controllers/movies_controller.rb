@@ -32,7 +32,9 @@ class MoviesController < ApplicationController
 
   # GET /movies/new
   def new
+
     @movie = Movie.find(params[:movie_id])
+    
   end
 
   # GET /movies/1/edit

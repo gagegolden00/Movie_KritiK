@@ -5,9 +5,12 @@
 # below each fixture, per the syntax in the comments below
 #
 
-# these are commented out because of this error -- ERROR:  duplicate key value violates unique constraint "index_users_on_email"
-#one: {}
-# column: value
-#
-#two: {}
-# column: value
+user_admin:
+  email: admin@admin.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'asdfasdf') %>
+  role: 1
+
+user_regular:
+  email: user@user.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'asdfasdf') %>
+  role: 0

@@ -1,7 +1,7 @@
 <body class="">
   <header class="flex justify-center">
     <!-- Desktop Form ______________________________________________________________________________-->
-    <%= form_with(model: @movie, method: :get, id: "search-form", class: "hidden lg:flex mt-5 w-3/5") do |sel| %>
+    <%= form_with(model: @movie, method: :get, id: "large-search-form", class: "hidden lg:flex mt-5 w-3/5") do |sel| %>
       <div data-controller="clearform" class="w-full">
         <div class="flex items-center justify-center">
           <!-- Text Search -->
@@ -10,7 +10,7 @@
             <%= sel.submit "Search", class: "flex ml-4 justify-center items-center text-center hover:cursor-pointer border-2 border-blue-500 rounded w-48 bg-blue-50 h-10 whitespace-nowrap hover:bg-blue-100" %>
             <%= link_to "Reset search", "#", class: "flex ml-4 justify-center p-4 items-center text-center hover:cursor-pointer border-2 border-blue-500 rounded w-48 bg-blue-50 h-10 whitespace-nowrap hover:bg-blue-100", "data-action" => "click->clearform#clearForm" %>
             <% if current_user.present? && current_user.admin? %>
-              <%= link_to "New Review", reviews_search_reviews_path, class: "flex ml-4 p-4 justify-center items-center text-center hover:cursor-pointer border-2 border-green-500 rounded w-48 bg-green-50 h-10 whitespace-nowrap hover:bg-green-100" %>
+              <%= link_to "New Review", reviews_search_reviews_path, class: "flex ml-4 p-4 justify-center items-center text-center hover:cursor-pointer border-2 border-green-500 rounded w-48 bg-green-50 h-10 whitespace-nowrap hover:bg-green-100", id: "new_review" %>
             <% end %>
           </div>
         </div>
@@ -19,14 +19,14 @@
           <!-- genre selection -->
           <div class="w-52">
             <!-- the button -->
-            <button data-action="click->filter-dropdown#toggleGenre" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between rounded">              
+            <button id="genre-button" data-action="click->filter-dropdown#toggleGenre" type="button" class="w-full pt-2.5 border-2 border-b-0 text-start pr-2 lg:pr-4 h-8 flex items-center justify-between rounded">              
               <span class="lg:ml-5 ml-2">Genre</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex lg:w-6 lg:h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </button>
             <!-- the menu -->
-            <div class="max-h-32 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
+            <div id="genre-dropdown" class="max-h-32 pt-3 flex flex-col overflow-y-auto border-2 border-t-0">
               <div data-filter-dropdown-target="genreContent">
                 <% @avaliable_genres.each do |genre| %>
                   <div class="pl-2 pr-10 flex items-center mb-1 hover:bg-slate-100">
@@ -101,7 +101,7 @@
   <% end %>
   <!-- Mobile form -->
   <div class="lg:hidden w-11/12">
-    <%= form_with(model: @movie, method: :get, id: "search-form", class: " mt-4 w-full ") do |sel| %>
+    <%= form_with(model: @movie, method: :get, id: "small-search-form", class: " mt-4 w-full ") do |sel| %>
       <div class="flex" data-controller="clearform">
         <h1 class="font-bold mt-3.5">Movie Reviews</h1>
         <div class="flex flex-row justify-end ml-auto">
