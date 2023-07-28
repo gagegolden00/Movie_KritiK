@@ -1,6 +1,5 @@
 class MovieCreator
   def self.create_movie(movie_data_hash, genres)
-    binding.pry
 
     start_year_param = movie_data_hash["Year"][0..3]
     end_year_param = movie_data_hash["Year"].length == 9 ? movie_data_hash["Year"][5..8] : nil

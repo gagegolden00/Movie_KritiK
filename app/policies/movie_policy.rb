@@ -17,18 +17,6 @@ class MoviePolicy < ApplicationPolicy
     only_admin
   end
 
-  def new?
-    only_admin
-  end
-
-  def update?
-    only_admin
-  end
-
-  def edit?
-    only_admin
-  end
-
   def destroy?
     only_admin
   end

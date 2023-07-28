@@ -89,3 +89,5 @@ gem "traceroute", "~> 0.8.1"
 gem "nokogiri", "~> 1.15"
 
 gem "launchy", "~> 2.5"
+
+gem "brakeman", "~> 6.0"

@@ -35,4 +35,29 @@ class ActiveSupport::TestCase
     fill_in "user_password", with: "asdfasdf"
     click_on "Submit"
   end
+
+  def login_as_admin_and_start_review_creation
+    login_as_admin
+    visit "/movies/reviews/search"
+  end
+
+  def search_api_for_movies
+    refute_selector "#search-results-1", visible: false
+    sleep 1
+    fill_in "review_title", with: "star wars"
+    sleep 1
+    click_button "Search"
+    sleep 1
+  end
+
+  def select_a_searched_movie
+    within("#search-results-1") do
+      click_link ("Review")
+    end
+    sleep 2
+  assert_equal new_review_path, current_path
+  end
+
+
+
 end

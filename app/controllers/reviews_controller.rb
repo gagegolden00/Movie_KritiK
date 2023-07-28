@@ -6,17 +6,12 @@ class ReviewsController < ApplicationController
   def search
     @review = Review.new
     authorize @review
-    retrieve_movie_list(params[:review][:title]) if params[:review][:title].present?
-    @search_performed = !params[:review][:title].nil?
-    @exsisting_movies_with_api_movie_id = Review.joins(:movie).select("reviews.api_movie_id, reviews.movie_id")
-  end
-
-  # GET /reviews or /reviews.json
-  def index
-  end
-
-  # GET /reviews/1 or /reviews/1.json
-  def show
+    if params.present? && params[:review].present? && params[:review][:title].present?
+      title = params[:review][:title]
+      retrieve_movie_list(title)
+      @search_performed = !title.nil?
+      @exsisting_movies_with_api_movie_id = Review.joins(:movie).select("reviews.api_movie_id, reviews.movie_id")
+    end
   end
 
   # GET /reviews/new
@@ -63,6 +58,8 @@ class ReviewsController < ApplicationController
   # GET /reviews/1/edit
   def edit
     @movie = @review.movie
+    @review = Review.find(params[:id])
+    authorize @review
   end
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
@@ -104,7 +101,7 @@ class ReviewsController < ApplicationController
   end
 
   def retrieve_movie_list(title)
-    @movies = self.retrieve_movies(params[:review][:title]) if params[:review][:title].present?
+    @movies = self.retrieve_movies(title)
   end
 
   def retrieve_selected_movie_details(api_movie_id)
