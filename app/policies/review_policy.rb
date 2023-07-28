@@ -5,15 +5,9 @@ class ReviewPolicy < ApplicationPolicy
     @user = user
     @review = review
   end
+
   def search?
     only_admin
-  end
-  def index?
-    true
-  end
-
-  def show?
-    true
   end
 
   def create?
@@ -29,7 +23,7 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def edit?
-    update?
+    only_admin
   end
 
   def destroy?
@@ -39,6 +33,7 @@ class ReviewPolicy < ApplicationPolicy
   private
 
   def only_admin
+    @user.present?
     @user.admin?
   end
 end

@@ -68,10 +68,12 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    ansi (1.5.0)
     bcrypt (3.1.19)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    brakeman (6.0.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -109,6 +111,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    launchy (2.5.2)
+      addressable (~> 2.8)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -122,6 +126,12 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.18.1)
+    minitest-pretty_diff (0.1)
+    minitest-reporters (1.6.0)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     msgpack (1.7.1)
     net-imap (0.3.6)
       date
@@ -178,10 +188,6 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
-    ransack (4.0.0)
-      activerecord (>= 6.1.5)
-      activesupport (>= 6.1.5)
-      i18n
     redis (4.8.1)
     regexp_parser (2.8.1)
     reline (0.3.5)
@@ -190,6 +196,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.5)
+    ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -208,6 +215,8 @@ GEM
       railties (>= 6.0.0)
     thor (1.2.2)
     timeout (0.4.0)
+    traceroute (0.8.1)
+      rails (>= 3.0.0)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -238,23 +247,29 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  brakeman (~> 6.0)
   capybara
   debug
   devise (~> 4.9)
   importmap-rails
   jbuilder
+  launchy (~> 2.5)
+  minitest (~> 5.18)
+  minitest-pretty_diff (~> 0.1)
+  minitest-reporters (~> 1.6)
+  nokogiri (~> 1.15)
   pagy (~> 6.0)
   pg (~> 1.1)
   pry (~> 0.14.2)
   puma (~> 5.0)
   pundit (~> 2.3)
   rails (~> 7.0.6)
-  ransack (~> 4.0)
   redis (~> 4.0)
   selenium-webdriver
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
+  traceroute (~> 0.8.1)
   turbo-rails
   tzinfo-data
   web-console
@@ -264,4 +279,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.10
+   2.4.17
