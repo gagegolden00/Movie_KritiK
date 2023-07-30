@@ -8,14 +8,12 @@ class MoviesIndexTest < ApplicationSystemTestCase
     assert_equal movies_path, current_path
     within("#large-search-form") do
       assert_link('New Review')
-
       assert_selector('#genre-dropdown', visible: false )
       click_on "genre-button"
       sleep 1
       assert_selector('#genre-dropdown', visible: true)
       click_on "genre-button"
       sleep 1
-
     end
     within("#small-search-form", visible: :all) do
       assert_link('New Review', visible: :all)
@@ -37,4 +35,5 @@ class MoviesIndexTest < ApplicationSystemTestCase
     refute_link('Edit')
     refute_link('Delete')
   end
+
 end

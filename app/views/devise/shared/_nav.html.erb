@@ -1,5 +1,5 @@
 <nav class="py-2  lg:text-black lg:h-20 lg:flex  lg:items-center rounded border-4 border-double p-2">
-  <%= link_to root_path, class: "mr-auto ml-4 lg:ml-12" do %>
+  <%= link_to root_path, class: "mr-auto ml-4 lg:ml-12", id: "movies-index-link-logo" do %>
     <%= image_tag("image.png", alt: "The Movie Critic site logo / link to home", width: 200, height: 200) %>
   <% end %>
   <!-- if user logged in show username -->
@@ -9,12 +9,12 @@
   <% end %>
   <div class="hidden lg:flex lg:ml-auto">
     <div class="flex items-center">
-      <%= link_to "Movie reviews", movies_path, class: "lg:mr-10 hover:text-blue-600" %>
+      <%= link_to "Movie reviews", movies_path, class: "lg:mr-10 hover:text-blue-600", id: "movies-index-link" %>
       <% if current_user.present? && current_user.admin? %>
-        <%= link_to "New Review", reviews_search_reviews_path, class: "lg:mr-10 hover:text-blue-600" %>
+        <%= link_to "New Review", reviews_search_reviews_path, class: "lg:mr-10 hover:text-blue-600", id: "new-review-link" %>
       <% end %>
     </div>
-    <div class="inline-block">
+    <div class="inline-block" id="dropdown">
       <input class="hidden" />
       <label class="dropdown-label">
         <button class="mr-12 hover:text-blue-600">
@@ -22,8 +22,8 @@
         </button>
       </label>
       <div class="dropdown-content mr-20">
-        <%= link_to "Account", account_path, class: "text-black hover:text-blue-600 cursor-hover" %>
-        <%= link_to "Logout", destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-blue-600 cursor-hover" %>
+        <%= link_to "Account", account_path, class: "text-black hover:text-blue-600 cursor-hover", id: "account-link" %>
+        <%= link_to "Logout", destroy_user_session_url, data: { turbo_method: :delete }, class: "text-black hover:text-blue-600 cursor-hover", id: "logout-link" %>
       </div>
     </div>
   </div>

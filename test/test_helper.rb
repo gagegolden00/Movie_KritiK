@@ -25,19 +25,26 @@ class ActiveSupport::TestCase
   def login_as_admin
     visit root_path
     fill_in "user_email", with: "admin@admin.com"
+    sleep 1
     fill_in "user_password", with: "asdfasdf"
+    sleep 1
     click_on "Submit"
+    #@user_admin = users(:user_admin)
   end
 
   def login_as_user 
     visit root_path
     fill_in "user_email", with: "user@user.com"
+    sleep 1
     fill_in "user_password", with: "asdfasdf"
+    sleep 1
     click_on "Submit"
+    #@user_regular = users(:user_regular)
   end
 
   def login_as_admin_and_start_review_creation
     login_as_admin
+    sleep 1
     visit "/movies/reviews/search"
   end
 
@@ -58,6 +65,16 @@ class ActiveSupport::TestCase
   assert_equal new_review_path, current_path
   end
 
+  def login_as_admin_to_reviews_search_path
+    login_as_admin
+    visit reviews_search_reviews_path
+    assert_equal reviews_search_reviews_path, current_path
+  end
 
+  def get_session_bool
+    warden_auth_hash = page.get_rack_session
+    user_key = warden_auth_hash['warden.user.user.key']
+    user_key.present? ? true : false
+  end
 
 end

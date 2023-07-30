@@ -76,6 +76,7 @@ group :test do
   gem "minitest", "~> 5.18"
   gem "minitest-reporters", "~> 1.6"
   gem "minitest-pretty_diff", "~> 0.1"
+  gem "rack_session_access", "~> 0.2.0"
 end
 
 gem "devise", "~> 4.9"
@@ -91,3 +92,5 @@ gem "nokogiri", "~> 1.15"
 gem "launchy", "~> 2.5"
 
 gem "brakeman", "~> 6.0"
+
+
